@@ -1,0 +1,24 @@
+﻿# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Testing and Environment
+.env
+.env.local
+.env.*.local
+
+# Logs and Temp
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor & OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Internal Business & Sales Strategy (keep local only)
+PLAYBOOK_*.md
