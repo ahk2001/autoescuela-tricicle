@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
@@ -277,6 +277,11 @@
           <div style="font-size: 1.85rem; font-weight: 800; color: #34D399;" class="font-display" id="stat-wa">0</div>
           <div style="font-size: 0.65rem; color: rgba(255,255,255,0.5);">Prontos para envio direto</div>
         </div>
+        <div style="padding: 0.85rem 1rem; border-radius: 0.75rem; background-color: var(--asphalt-soft); border: 1px solid rgba(255,255,255,0.15);">
+          <div style="font-size: 0.7rem; color: #9CA3AF; text-transform: uppercase; font-weight: 700;">Já Contatadas</div>
+          <div style="font-size: 1.85rem; font-weight: 800; color: #9CA3AF;" class="font-display" id="stat-hidden">0</div>
+          <div style="font-size: 0.65rem; color: rgba(255,255,255,0.45);">Ocultadas da lista</div>
+        </div>
       </div>
     </div>
   </section>
@@ -307,6 +312,7 @@
             <button type="button" data-filter="NO_SITE" class="filter-tab" style="padding: 0.35rem 0.75rem; border-radius: 4px; background-color: rgba(255,255,255,0.05); color: #FB923C; font-weight: 500; border: none; cursor: pointer;"> 100% SEM SITE (<span id="count-no-site">0</span>)</button>
             <button type="button" data-filter="HAS_SITE" class="filter-tab" style="padding: 0.35rem 0.75rem; border-radius: 4px; background-color: rgba(255,255,255,0.05); color: #60A5FA; font-weight: 500; border: none; cursor: pointer;"> COM SITE (<span id="count-has-site">0</span>)</button>
             <button type="button" data-filter="HAS_WA" class="filter-tab" style="padding: 0.35rem 0.75rem; border-radius: 4px; background-color: rgba(255,255,255,0.05); color: #34D399; font-weight: 500; border: none; cursor: pointer;"> COM WHATSAPP (<span id="count-has-wa">0</span>)</button>
+            <button type="button" data-filter="HIDDEN" class="filter-tab" style="padding: 0.35rem 0.75rem; border-radius: 4px; background-color: rgba(255,255,255,0.05); color: #9CA3AF; font-weight: 500; border: none; cursor: pointer;"> OCULTADAS / JÁ USADAS (<span id="count-hidden">0</span>)</button>
           </div>
 
           <div style="color: var(--ink-muted);">
@@ -593,9 +599,6 @@
         let addedCount = 0;
         data.forEach(item => {
           const rawName = item.name || (item.display_name ? item.display_name.split(',')[0] : "Autoescuela");
-          // Evitar duplicatas pelo nome
-          const exists = LEADS.some(l => l.name.toLowerCase() === rawName.toLowerCase());
-          if (exists) return;
 
           const tags = item.extratags || {};
           const addr = item.address || {};
@@ -607,6 +610,14 @@
           } else if (country === 'BR' && (phone.length === 10 || phone.length === 11)) {
             phone = "55" + phone;
           }
+
+          // Evitar duplicatas ou re-adicionar autoescola que o usuário já usou/escondeu
+          const exists = LEADS.some(l => {
+            const sameName = l.name.toLowerCase().trim() === rawName.toLowerCase().trim();
+            const samePhone = phone && l.whatsapp && (l.whatsapp === phone || l.whatsapp.endsWith(phone) || phone.endsWith(l.whatsapp));
+            return sameName || samePhone;
+          });
+          if (exists) return;
 
           const website = tags.website || tags['contact:website'] || "";
           const district = addr.suburb || addr.quarter || addr.neighbourhood || addr.city_district || addr.city || cityQuery;
@@ -634,6 +645,7 @@
               ? "Site detectado. Requer auditoria mobile e botão de WhatsApp."
               : "100% SEM SITE PRÓPRIO. Depende exclusivamente do Maps e perde novos alunos diariamente.",
             hasProCourses: rawName.toLowerCase().includes('cap') || rawName.toLowerCase().includes('camion'),
+            hidden: false,
             notes: `Lead rastreado pelo Agente Scout em ${cityQuery}.`
           };
 
@@ -760,7 +772,7 @@ Por favor, defina o Conceito de Direção de Arte exclusivo para a ${lead.name},
 
     function updateCityDropdown() {
       const citySelect = document.getElementById('city-select');
-      const uniqueCities = [...new Set(LEADS.map(l => l.city || l.district))].filter(Boolean);
+      const uniqueCities = [...new Set(LEADS.filter(l => !l.hidden).map(l => l.city || l.district))].filter(Boolean);
       
       let html = '<option value="ALL">Todas as Cidades na Base</option>';
       uniqueCities.forEach(c => {
@@ -771,20 +783,27 @@ Por favor, defina o Conceito de Direção de Arte exclusivo para a ${lead.name},
     }
 
     function updateMetrics() {
-      const total = LEADS.length;
-      const noSite = LEADS.filter(l => !l.hasWebsite).length;
-      const hasSite = LEADS.filter(l => l.hasWebsite).length;
-      const hasWa = LEADS.filter(l => l.whatsapp && l.whatsapp.trim().length > 5).length;
+      const activeLeads = LEADS.filter(l => !l.hidden);
+      const hiddenLeads = LEADS.filter(l => l.hidden);
+      const total = activeLeads.length;
+      const noSite = activeLeads.filter(l => !l.hasWebsite).length;
+      const hasSite = activeLeads.filter(l => l.hasWebsite).length;
+      const hasWa = activeLeads.filter(l => l.whatsapp && l.whatsapp.trim().length > 5).length;
+      const hiddenCount = hiddenLeads.length;
 
       document.getElementById('stat-total').textContent = total;
       document.getElementById('stat-no-site').textContent = noSite;
       document.getElementById('stat-has-site').textContent = hasSite;
       document.getElementById('stat-wa').textContent = hasWa;
+      const statHiddenEl = document.getElementById('stat-hidden');
+      if (statHiddenEl) statHiddenEl.textContent = hiddenCount;
 
       document.getElementById('count-all').textContent = total;
       document.getElementById('count-no-site').textContent = noSite;
       document.getElementById('count-has-site').textContent = hasSite;
       document.getElementById('count-has-wa').textContent = hasWa;
+      const countHiddenEl = document.getElementById('count-hidden');
+      if (countHiddenEl) countHiddenEl.textContent = hiddenCount;
     }
 
     function renderLeadsList() {
@@ -792,9 +811,14 @@ Por favor, defina o Conceito de Direção de Arte exclusivo para a ${lead.name},
       container.innerHTML = "";
 
       const filtered = LEADS.filter(l => {
-        if (currentFilter === "NO_SITE" && l.hasWebsite) return false;
-        if (currentFilter === "HAS_SITE" && !l.hasWebsite) return false;
-        if (currentFilter === "HAS_WA" && (!l.whatsapp || l.whatsapp.trim().length <= 5)) return false;
+        if (currentFilter === "HIDDEN") {
+          if (!l.hidden) return false;
+        } else {
+          if (l.hidden) return false;
+          if (currentFilter === "NO_SITE" && l.hasWebsite) return false;
+          if (currentFilter === "HAS_SITE" && !l.hasWebsite) return false;
+          if (currentFilter === "HAS_WA" && (!l.whatsapp || l.whatsapp.trim().length <= 5)) return false;
+        }
 
         const leadCity = l.city || l.district;
         if (selectedCity !== "ALL" && leadCity !== selectedCity) return false;
@@ -835,6 +859,7 @@ Por favor, defina o Conceito de Direção de Arte exclusivo para a ${lead.name},
           <div style="display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem;">
             <div style="display: flex; flex-direction: column; gap: 0.35rem;">
               <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; font-size: 0.7rem;" class="font-mono">
+                ${lead.hidden ? '<span style="background-color: rgba(156, 163, 175, 0.2); color: #D1D5DB; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 700;">OCULTADA</span>' : ''}
                 <span class="${lead.hasWebsite ? 'badge-has-site' : 'badge-no-site'}">
                   ${lead.hasWebsite ? 'COM SITE · RENOVAÇÃO' : ' 100% SEM SITE · PRIORIDADE MÁXIMA'}
                 </span>
@@ -886,6 +911,18 @@ Por favor, defina o Conceito de Direção de Arte exclusivo para a ${lead.name},
                   <span>Checar WhatsApp no Maps ↗</span>
                 </a>
               `}
+
+              <!-- Botão Esconder / Reexibir -->
+              <button type="button" onclick="toggleHideLead('${lead.id}')" class="btn-outline"
+                      style="font-size: 0.75rem; text-transform: uppercase; padding: 0.65rem 0.85rem; border-color: ${lead.hidden ? 'rgba(52, 211, 153, 0.45)' : 'rgba(255,255,255,0.2)'}; color: ${lead.hidden ? '#34D399' : 'var(--ink-muted)'};"
+                      title="${lead.hidden ? 'Reexibir na lista principal' : 'Ocultar esta autoescola (já contatada) para não aparecer mais'}">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  ${lead.hidden 
+                    ? '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>' 
+                    : '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>'}
+                </svg>
+                <span>${lead.hidden ? 'Reexibir' : 'Esconder'}</span>
+              </button>
             </div>
           </div>
 
@@ -921,6 +958,21 @@ Por favor, defina o Conceito de Direção de Arte exclusivo para a ${lead.name},
         `;
         container.appendChild(card);
       });
+    }
+
+    function toggleHideLead(id) {
+      const lead = LEADS.find(l => l.id === id);
+      if (!lead) return;
+      lead.hidden = !lead.hidden;
+      persistLeads();
+      updateCityDropdown();
+      updateMetrics();
+      renderLeadsList();
+      if (lead.hidden) {
+        showToastNotification(`Autoescola "${lead.name}" escondida! Não aparecerá mais nas buscas.`);
+      } else {
+        showToastNotification(`Autoescola "${lead.name}" reexibida na lista principal.`);
+      }
     }
 
     // 6. MODAL & INTERAÇÕES
@@ -1060,6 +1112,7 @@ Por favor, defina o Conceito de Direção de Arte exclusivo para a ${lead.name},
           ? "Site cadastrado. Verificar experiência no celular e botão de WhatsApp."
           : "100% SEM SITE PRÓPRIO. Oportunidade máxima de criar presença profissional.",
         hasProCourses: false,
+        hidden: false,
         notes: "Lead cadastrado manualmente"
       };
 
@@ -1075,9 +1128,9 @@ Por favor, defina o Conceito de Direção de Arte exclusivo para a ${lead.name},
 
     // 9. EXPORTAR CSV
     document.getElementById('btn-export-csv').addEventListener('click', () => {
-      let csv = "Nome,Cidade,Distrito,Endereco,WhatsApp,Instagram,Tem_Site,URL_Site,Avaliacao,Diagnostico\n";
+      let csv = "Nome,Status,Cidade,Distrito,Endereco,WhatsApp,Instagram,Tem_Site,URL_Site,Avaliacao,Diagnostico\n";
       LEADS.forEach(l => {
-        csv += `"${l.name}","${l.city || ''}","${l.district}","${l.address}","+${l.whatsapp}","${l.instagram ? '@' + l.instagram : ''}","${l.hasWebsite ? 'SIM' : 'NAO'}","${l.websiteUrl}","${l.rating}","${l.vulnerabilities.replace(/"/g, '""')}"\n`;
+        csv += `"${l.name}","${l.hidden ? 'OCULTADO (JA USADO)' : 'ATIVO'}","${l.city || ''}","${l.district}","${l.address}","+${l.whatsapp}","${l.instagram ? '@' + l.instagram : ''}","${l.hasWebsite ? 'SIM' : 'NAO'}","${l.websiteUrl}","${l.rating}","${l.vulnerabilities.replace(/"/g, '""')}"\n`;
       });
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
