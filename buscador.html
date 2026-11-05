@@ -1,0 +1,1098 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buscador & Prospector de Autoescolas — Sistema de Vendas & WhatsApp</title>
+  <meta name="description" content="Painel de prospecção ativa de autoescolas com gerador tático de mensagens para WhatsApp e briefings de renovação de site." />
+
+  <!-- Tipografia de Alto Impacto (Barlow Condensed + Plus Jakarta Sans + JetBrains Mono) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* RESET & DESIGN TOKENS */
+    :root {
+      --asphalt: #0E1012;
+      --asphalt-soft: #171A1E;
+      --asphalt-card: #20242B;
+      --asphalt-border: #2C323C;
+      --tricicle: #F5CE00;
+      --tricicle-hover: #FFD814;
+      --paper: #F4F1EA;
+      --paper-dark: #E6E1D3;
+      --ink-muted: #8E939D;
+      --hot-green: #10B981;
+      --hot-orange: #F97316;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--asphalt);
+      color: var(--paper);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      line-height: 1.5;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .font-display { font-family: 'Barlow Condensed', sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    .font-sans { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+    /* Grade Arquitetônica de Fundo */
+    .bg-grid {
+      background-size: 40px 40px;
+      background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    }
+
+    /* Utilitários Essenciais Standalone (Zero dependência de build) */
+    .container-app { max-width: 1280px; margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem; }
+    
+    .card-asphalt {
+      background-color: var(--asphalt-soft);
+      border: 1px solid var(--asphalt-border);
+      border-radius: 0.75rem;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card-asphalt:hover {
+      border-color: rgba(245, 206, 0, 0.5);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    }
+
+    .btn-tricicle {
+      background-color: var(--tricicle);
+      color: var(--asphalt);
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      border-radius: 0.5rem;
+    }
+    .btn-tricicle:hover {
+      background-color: var(--tricicle-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #FFFFFF;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      border-radius: 0.5rem;
+    }
+    .btn-outline:hover {
+      border-color: #FFFFFF;
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Badges */
+    .badge-no-site {
+      background-color: rgba(249, 115, 22, 0.18);
+      color: #FB923C;
+      border: 1px solid rgba(249, 115, 22, 0.45);
+      padding: 0.2rem 0.6rem;
+      border-radius: 0.25rem;
+      font-weight: 700;
+    }
+    .badge-has-site {
+      background-color: rgba(59, 130, 246, 0.18);
+      color: #60A5FA;
+      border: 1px solid rgba(59, 130, 246, 0.45);
+      padding: 0.2rem 0.6rem;
+      border-radius: 0.25rem;
+      font-weight: 700;
+    }
+    .badge-wa {
+      background-color: rgba(16, 185, 129, 0.18);
+      color: #34D399;
+      border: 1px solid rgba(16, 185, 129, 0.45);
+      padding: 0.2rem 0.5rem;
+      border-radius: 0.25rem;
+      font-weight: 700;
+    }
+
+    /* Modais & Ocultação Blindada */
+    .hidden { display: none !important; }
+    
+    .modal-backdrop {
+      background-color: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+    }
+    #pitch-modal:not(.hidden), #add-modal:not(.hidden) {
+      display: flex !important;
+    }
+
+    /* Animação Spinner */
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .animate-spin { animation: spin 1s linear infinite; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 7px; height: 7px; }
+    ::-webkit-scrollbar-track { background: var(--asphalt); }
+    ::-webkit-scrollbar-thumb { background: #2A303A; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--tricicle); }
+  </style>
+</head>
+<body class="bg-grid">
+
+  <!-- BARRA DE STATUS MULTI-AGENTES -->
+  <div style="border-bottom: 1px solid rgba(255,255,255,0.1); background-color: var(--asphalt); padding: 0.6rem 1rem; font-size: 0.75rem;" class="font-mono">
+    <div class="container-app" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem;">
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <span style="color: var(--tricicle); font-weight: 700; display: inline-flex; align-items: center; gap: 0.4rem;">
+          <span style="width: 8px; height: 8px; border-radius: 50%; background-color: var(--tricicle); display: inline-block;"></span>
+          SISTEMA MULTI-AGENTES ATIVO
+        </span>
+        <span style="color: rgba(255,255,255,0.25);">|</span>
+        <span style="color: rgba(255,255,255,0.7);">AGENTES: SCOUT (BUSCA GLOBAL) · AUDITOR · PITCH WHATSAPP · ART DIRECTOR</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 1rem; color: rgba(255,255,255,0.6);">
+        <span id="base-status-tag" style="color: var(--tricicle);">ALCANCE: QUALQUER CIDADE (ESPANHA / BRASIL / MUNDO)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CABEÇALHO DO APLICATIVO -->
+  <header style="border-bottom: 1px solid rgba(255,255,255,0.1); background-color: rgba(23,26,30,0.92); position: sticky; top: 0; z-index: 30; backdrop-filter: blur(8px); padding: 1rem 0;">
+    <div class="container-app" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;">
+      <div style="display: flex; align-items: center; gap: 0.85rem;">
+        <div style="width: 44px; height: 44px; border-radius: 8px; background-color: var(--tricicle); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 900; color: var(--asphalt);" class="font-display">
+          A
+        </div>
+        <div>
+          <h1 style="font-size: 1.5rem; font-weight: 800; text-transform: uppercase; color: #FFFFFF; line-height: 1;" class="font-display">
+            BUSCADOR & PROSPECTOR <span style="background-color: var(--tricicle); color: var(--asphalt); padding: 0.1rem 0.35rem;">AUTOESCOLAS</span>
+          </h1>
+          <p style="font-size: 0.75rem; color: var(--ink-muted); margin-top: 0.2rem;" class="font-mono">
+            Rastreador de WhatsApp · Diagnóstico de Sites · Scripts Táticos de Fechamento
+          </p>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <button id="btn-open-add-modal" type="button" class="btn-tricicle font-mono" style="font-size: 0.75rem; text-transform: uppercase; padding: 0.65rem 1rem;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+          <span>Novo Lead Manual</span>
+        </button>
+        <button id="btn-export-csv" type="button" class="btn-outline font-mono" style="font-size: 0.75rem; text-transform: uppercase; padding: 0.65rem 0.9rem;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          <span>Exportar CSV</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MÓDULO AGENTE 1: MOTOR DE BUSCA AO VIVO EM QUALQUER CIDADE -->
+  <section style="padding: 1.5rem 0 0.5rem;">
+    <div class="container-app">
+      <div style="background-color: var(--asphalt-soft); border: 2px solid var(--tricicle); border-radius: 0.85rem; padding: 1.25rem 1.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5);" class="font-mono">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.85rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span style="background-color: var(--tricicle); color: var(--asphalt); font-weight: 800; font-size: 0.7rem; padding: 0.2rem 0.5rem; border-radius: 4px;">AGENTE 1 // SCOUT</span>
+            <span style="font-size: 0.8rem; font-weight: 700; color: #FFFFFF; text-transform: uppercase;">Rastrear Novas Autoescolas Ao Vivo no Mapa</span>
+          </div>
+          <span style="font-size: 0.7rem; color: var(--ink-muted);">Busca global direta em base aberta (sem custos de API)</span>
+        </div>
+
+        <form id="scout-search-form" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.75rem; align-items: center;">
+          <!-- Input Cidade -->
+          <div style="grid-column: span 2;">
+            <input id="scout-city-input" type="text" required placeholder="Digite a cidade ou região (Ex: Madrid, Barcelona, Valencia, Alicante, Sevilla, São Paulo...)"
+                   style="width: 100%; background-color: var(--asphalt); border: 1px solid rgba(255,255,255,0.2); border-radius: 0.5rem; padding: 0.75rem 1rem; color: #FFFFFF; font-size: 0.875rem; font-family: 'Plus Jakarta Sans', sans-serif; outline: none;" />
+          </div>
+
+          <!-- Seletor de País / Região -->
+          <div>
+            <select id="scout-country-select" style="width: 100%; background-color: var(--asphalt); border: 1px solid rgba(255,255,255,0.2); border-radius: 0.5rem; padding: 0.75rem 0.75rem; color: #FFFFFF; font-size: 0.8rem; font-family: 'JetBrains Mono', monospace; outline: none;">
+              <option value="ES">Espanha (Autoescuela / Carnet)</option>
+              <option value="BR">Brasil (Autoescola / CNH / CFC)</option>
+              <option value="GLOBAL">Outros Países (Global)</option>
+            </select>
+          </div>
+
+          <!-- Botão de Ação -->
+          <div style="display: flex; gap: 0.5rem;">
+            <button id="scout-submit-btn" type="submit" class="btn-tricicle font-mono" style="flex: 1; padding: 0.75rem 1.25rem; font-size: 0.8rem; text-transform: uppercase; white-space: nowrap;">
+              <span id="scout-btn-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              </span>
+              <span id="scout-btn-text">Buscar Autoescolas</span>
+            </button>
+            <a id="scout-maps-shortcut" href="https://www.google.com/maps/search/autoescuelas" target="_blank" rel="noopener noreferrer"
+               title="Abrir pesquisa direta no Google Maps"
+               class="btn-outline font-mono" style="padding: 0.75rem 0.85rem; font-size: 0.75rem; text-transform: uppercase;">
+              <span>Maps ↗</span>
+            </a>
+          </div>
+        </form>
+
+        <!-- Barra de Progresso / Feedback -->
+        <div id="scout-feedback" style="display: none; margin-top: 0.75rem; padding: 0.5rem 0.85rem; background-color: rgba(245,206,0,0.1); border-left: 3px solid var(--tricicle); font-size: 0.75rem; color: var(--tricicle);">
+          Localizando autoescolas...
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DASHBOARD DE MÉTRICAS RÁPIDAS -->
+  <section style="padding: 0.75rem 0;">
+    <div class="container-app">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem;" class="font-mono">
+        <div style="padding: 0.85rem 1rem; border-radius: 0.75rem; background-color: var(--asphalt-soft); border: 1px solid var(--asphalt-border);">
+          <div style="font-size: 0.7rem; color: var(--ink-muted); text-transform: uppercase;">Total de Leads</div>
+          <div style="font-size: 1.85rem; font-weight: 800; color: #FFFFFF;" class="font-display" id="stat-total">0</div>
+          <div style="font-size: 0.65rem; color: rgba(255,255,255,0.5);">Na base ativa</div>
+        </div>
+        <div style="padding: 0.85rem 1rem; border-radius: 0.75rem; background-color: var(--asphalt-soft); border: 1px solid rgba(249,115,22,0.35);">
+          <div style="font-size: 0.7rem; color: #FB923C; text-transform: uppercase; font-weight: 700;">100% Sem Site</div>
+          <div style="font-size: 1.85rem; font-weight: 800; color: #FB923C;" class="font-display" id="stat-no-site">0</div>
+          <div style="font-size: 0.65rem; color: rgba(255,255,255,0.5);">Prioridade máxima de criação</div>
+        </div>
+        <div style="padding: 0.85rem 1rem; border-radius: 0.75rem; background-color: var(--asphalt-soft); border: 1px solid rgba(59,130,246,0.35);">
+          <div style="font-size: 0.7rem; color: #60A5FA; text-transform: uppercase; font-weight: 700;">Com Site (Renovação)</div>
+          <div style="font-size: 1.85rem; font-weight: 800; color: #60A5FA;" class="font-display" id="stat-has-site">0</div>
+          <div style="font-size: 0.65rem; color: rgba(255,255,255,0.5);">Falhas no mobile & brechas</div>
+        </div>
+        <div style="padding: 0.85rem 1rem; border-radius: 0.75rem; background-color: var(--asphalt-soft); border: 1px solid rgba(16,185,129,0.35);">
+          <div style="font-size: 0.7rem; color: #34D399; text-transform: uppercase; font-weight: 700;">WhatsApp Confirmado</div>
+          <div style="font-size: 1.85rem; font-weight: 800; color: #34D399;" class="font-display" id="stat-wa">0</div>
+          <div style="font-size: 0.65rem; color: rgba(255,255,255,0.5);">Prontos para envio direto</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BARRA DE CONTROLE: BUSCA LOCAL, FILTROS E CIDADES -->
+  <section style="padding: 0.5rem 0 1rem;">
+    <div class="container-app">
+      <div style="padding: 1rem; border-radius: 0.75rem; background-color: var(--asphalt-soft); border: 1px solid var(--asphalt-border); display: flex; flex-direction: column; gap: 0.85rem;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.75rem;">
+          <!-- Filtro Textual Rápido na Base -->
+          <div style="grid-column: span 2;">
+            <input id="search-input" type="text" placeholder="Filtrar por nome, rua, bairro ou telefone nos leads já carregados..."
+                   style="width: 100%; background-color: var(--asphalt); border: 1px solid rgba(255,255,255,0.15); border-radius: 0.5rem; padding: 0.75rem 1rem; font-size: 0.875rem; color: #FFFFFF; font-family: 'Plus Jakarta Sans', sans-serif; outline: none;" />
+          </div>
+
+          <!-- Seletor de Cidades Dinâmico -->
+          <div>
+            <select id="city-select" style="width: 100%; background-color: var(--asphalt); border: 1px solid rgba(255,255,255,0.15); border-radius: 0.5rem; padding: 0.75rem; font-size: 0.8rem; color: #FFFFFF; font-family: 'JetBrains Mono', monospace; outline: none;">
+              <option value="ALL">Todas as Cidades na Base</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Abas de Filtro de Status -->
+        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem; padding-top: 0.5rem; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.75rem;" class="font-mono">
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;" id="filter-tabs">
+            <button type="button" data-filter="ALL" class="filter-tab" style="padding: 0.35rem 0.75rem; border-radius: 4px; background-color: var(--tricicle); color: var(--asphalt); font-weight: 700; border: none; cursor: pointer;">TODOS (<span id="count-all">0</span>)</button>
+            <button type="button" data-filter="NO_SITE" class="filter-tab" style="padding: 0.35rem 0.75rem; border-radius: 4px; background-color: rgba(255,255,255,0.05); color: #FB923C; font-weight: 500; border: none; cursor: pointer;"> 100% SEM SITE (<span id="count-no-site">0</span>)</button>
+            <button type="button" data-filter="HAS_SITE" class="filter-tab" style="padding: 0.35rem 0.75rem; border-radius: 4px; background-color: rgba(255,255,255,0.05); color: #60A5FA; font-weight: 500; border: none; cursor: pointer;"> COM SITE (<span id="count-has-site">0</span>)</button>
+            <button type="button" data-filter="HAS_WA" class="filter-tab" style="padding: 0.35rem 0.75rem; border-radius: 4px; background-color: rgba(255,255,255,0.05); color: #34D399; font-weight: 500; border: none; cursor: pointer;"> COM WHATSAPP (<span id="count-has-wa">0</span>)</button>
+          </div>
+
+          <div style="color: var(--ink-muted);">
+            Exibindo <span id="leads-visible-count" style="color: #FFFFFF; font-weight: 700;">0</span> autoescolas
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LISTA DE LEADS (CARDS ASSIMÉTRICOS) -->
+  <main class="container-app" style="padding-bottom: 5rem;">
+    <div id="leads-container" style="display: flex; flex-direction: column; gap: 1rem;">
+      <!-- Inserido dinamicamente via JavaScript -->
+    </div>
+  </main>
+
+  <!-- MODAL: VER MENSAGEM TÁTICA DE WHATSAPP -->
+  <div id="pitch-modal" class="modal-backdrop hidden" style="position: fixed; inset: 0; z-index: 50; align-items: center; justify-content: center; padding: 1rem;">
+    <div style="background-color: var(--asphalt-soft); border: 1px solid rgba(255,255,255,0.2); border-radius: 1rem; max-width: 680px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem; box-shadow: 0 25px 50px rgba(0,0,0,0.8);">
+      <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.85rem;">
+        <div>
+          <span style="font-size: 0.7rem; text-transform: uppercase; color: var(--tricicle); font-weight: 700;" class="font-mono">Agente 3 // Copywriter Tático</span>
+          <h3 id="modal-lead-name" style="font-size: 1.75rem; font-weight: 800; text-transform: uppercase; color: #FFFFFF; line-height: 1.1; margin-top: 0.2rem;" class="font-display">
+            Nome da Autoescola
+          </h3>
+          <div id="modal-lead-district" style="font-size: 0.75rem; color: var(--ink-muted); margin-top: 0.2rem;" class="font-mono">Cidade / Distrito</div>
+        </div>
+        <button id="modal-close-btn" type="button" class="btn-outline" style="padding: 0.4rem; border-radius: 6px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Caixa da Mensagem Pronta -->
+      <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.75rem;" class="font-mono">
+          <span style="color: #FFFFFF; font-weight: 700; text-transform: uppercase;">Mensagem Pronta para Envio:</span>
+          <span id="modal-pitch-lang" style="color: var(--tricicle);">Linguagem Local</span>
+        </div>
+        <div style="position: relative;">
+          <textarea id="modal-pitch-es" readonly rows="8"
+                    style="width: 100%; background-color: var(--asphalt); border: 1px solid rgba(255,255,255,0.15); border-radius: 0.75rem; padding: 1rem; font-size: 0.85rem; color: var(--paper); line-height: 1.6; resize: none; outline: none;" class="font-mono"></textarea>
+          <button id="btn-copy-pitch" type="button" class="btn-tricicle font-mono"
+                  style="position: absolute; top: 0.75rem; right: 0.75rem; font-size: 0.7rem; text-transform: uppercase; padding: 0.35rem 0.65rem; border-radius: 4px;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span id="copy-btn-text">Copiar</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Tradução em Português -->
+      <div style="display: flex; flex-direction: column; gap: 0.4rem; padding-top: 0.5rem; border-top: 1px solid rgba(255,255,255,0.1);">
+        <div style="font-size: 0.7rem; color: var(--ink-muted); text-transform: uppercase;" class="font-mono">Tradução em Português (Para seu controle total):</div>
+        <div id="modal-pitch-pt" style="padding: 0.85rem; border-radius: 0.5rem; background-color: rgba(14,16,18,0.7); border: 1px solid rgba(255,255,255,0.1); font-size: 0.75rem; color: rgba(244,241,234,0.85); line-height: 1.5;">
+          Tradução...
+        </div>
+      </div>
+
+      <!-- Tática de Negociação -->
+      <div style="padding: 0.75rem 1rem; border-radius: 0.5rem; background-color: rgba(245,206,0,0.1); border: 1px solid rgba(245,206,0,0.3); font-size: 0.75rem; color: var(--tricicle);" class="font-mono">
+        <div style="font-weight: 700; text-transform: uppercase;">Tática Empregada:</div>
+        <p id="modal-pitch-tactic" style="color: rgba(244,241,234,0.9); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.75rem; margin-top: 0.2rem;">Explicação...</p>
+      </div>
+
+      <!-- Ações do Modal -->
+      <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem; padding-top: 0.5rem;">
+        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+          <button id="modal-btn-briefing" type="button" class="btn-outline font-mono" style="font-size: 0.75rem; text-transform: uppercase; padding: 0.75rem 1rem;">
+            <span>Copiar Briefing de Design</span>
+          </button>
+          <button id="modal-btn-ig-dm" type="button" class="btn-outline font-mono" style="font-size: 0.75rem; text-transform: uppercase; padding: 0.75rem 0.9rem; color: #FF7096; border-color: rgba(225,48,108,0.35);">
+            <span>Copiar Pitch p/ Instagram DM</span>
+          </button>
+        </div>
+        <a id="modal-btn-wa" href="#" target="_blank" rel="noopener noreferrer"
+           class="btn-tricicle font-mono" style="font-size: 0.75rem; text-transform: uppercase; padding: 0.75rem 1.25rem;">
+          <span>Abrir no WhatsApp Agora</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: CADASTRAR NOVO LEAD MANUAL DO GOOGLE MAPS -->
+  <div id="add-modal" class="modal-backdrop hidden" style="position: fixed; inset: 0; z-index: 50; align-items: center; justify-content: center; padding: 1rem;">
+    <div style="background-color: var(--asphalt-soft); border: 1px solid rgba(255,255,255,0.2); border-radius: 1rem; max-width: 560px; width: 100%; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; box-shadow: 0 25px 50px rgba(0,0,0,0.8);">
+      <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.75rem;">
+        <div>
+          <span style="font-size: 0.7rem; text-transform: uppercase; color: var(--tricicle); font-weight: 700;" class="font-mono">Agente 1 & 2 // Ingestão & Auditoria</span>
+          <h3 style="font-size: 1.5rem; font-weight: 800; text-transform: uppercase; color: #FFFFFF;" class="font-display">Cadastrar Novo Lead</h3>
+        </div>
+        <button id="add-modal-close-btn" type="button" class="btn-outline" style="padding: 0.4rem; border-radius: 6px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <form id="add-lead-form" style="display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.75rem;" class="font-mono">
+        <div>
+          <label style="display: block; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 0.25rem;">Nome da Autoescola *</label>
+          <input id="add-name" required type="text" placeholder="Ex: Autoescuela Gran Vía"
+                 style="width: 100%; background-color: var(--asphalt); border: 1px solid rgba(255,255,255,0.15); border-radius: 0.5rem; padding: 0.6rem 0.8rem; color: #FFFFFF; font-size: 0.85rem; font-family: 'Plus Jakarta Sans', sans-serif; outline: none;" />
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+          <div>
+            <label style="display: block; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 0.25rem;">Cidade / Distrito *</label>
+            <input id="add-district" required type="text" placeholder="Ex: Madrid, Centro..."
+                   style="width: 100%; background-color: var(--asphalt); border: 1px solid rgba(255,255,255,0.15); border-radius: 0.5rem; padding: 0.6rem 0.8rem; color: #FFFFFF; font-size: 0.85rem; font-family: 'Plus Jakarta Sans', sans-serif; outline: none;" />
+          </div>
+          <div>
+            <label style="display: block; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 0.25rem;">Telefone / WhatsApp *</label>
+            <input id="add-phone" required type="text" placeholder="Ex: 612 34 56 78 ou 11 9..."
+                   style="width: 100%; background-color: var(--asphalt); border: 1px solid rgba(255,255,255,0.15); border-radius: 0.5rem; padding: 0.6rem 0.8rem; color: #FFFFFF; font-size: 0.85rem; font-family: 'Plus Jakarta Sans', sans-serif; outline: none;" />
+          </div>
+        </div>
+
+        <div>
+          <label style="display: block; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 0.25rem;">Endereço Completo</label>
+          <input id="add-address" type="text" placeholder="Ex: Calle Mayor, 12, Madrid"
+                 style="width: 100%; background-color: var(--asphalt); border: 1px solid rgba(255,255,255,0.15); border-radius: 0.5rem; padding: 0.6rem 0.8rem; color: #FFFFFF; font-size: 0.85rem; font-family: 'Plus Jakarta Sans', sans-serif; outline: none;" />
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+          <div>
+            <label style="display: block; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 0.25rem;">Site Atual (Deixe em branco se NÃO tiver)</label>
+            <input id="add-site" type="text" placeholder="Ex: autoescuela.es"
+                   style="width: 100%; background-color: var(--asphalt); border: 1px solid rgba(255,255,255,0.15); border-radius: 0.5rem; padding: 0.6rem 0.8rem; color: #FFFFFF; font-size: 0.85rem; font-family: 'Plus Jakarta Sans', sans-serif; outline: none;" />
+          </div>
+          <div>
+            <label style="display: block; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 0.25rem;">Avaliação Google Maps</label>
+            <input id="add-rating" type="text" placeholder="Ex: 4.8 (85 reseñas)"
+                   style="width: 100%; background-color: var(--asphalt); border: 1px solid rgba(255,255,255,0.15); border-radius: 0.5rem; padding: 0.6rem 0.8rem; color: #FFFFFF; font-size: 0.85rem; font-family: 'Plus Jakarta Sans', sans-serif; outline: none;" />
+          </div>
+        </div>
+
+        <div>
+          <label style="display: block; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 0.25rem;">Instagram (Ex: @autoescuela_nome ou link do perfil)</label>
+          <input id="add-instagram" type="text" placeholder="Ex: @autoescuela_nome ou link"
+                 style="width: 100%; background-color: var(--asphalt); border: 1px solid rgba(255,255,255,0.15); border-radius: 0.5rem; padding: 0.6rem 0.8rem; color: #FFFFFF; font-size: 0.85rem; font-family: 'Plus Jakarta Sans', sans-serif; outline: none;" />
+        </div>
+
+        <div style="padding-top: 0.5rem; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: flex-end; gap: 0.5rem;">
+          <button type="button" id="add-modal-cancel" class="btn-outline font-mono" style="padding: 0.6rem 1rem;">Cancelar</button>
+          <button type="submit" class="btn-tricicle font-mono" style="padding: 0.6rem 1.25rem;">Salvar Lead & Gerar Pitch</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- NOTIFICAÇÃO TOAST -->
+  <div id="toast" style="position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 60; background-color: var(--tricicle); color: var(--asphalt); padding: 0.75rem 1.25rem; border-radius: 0.5rem; font-weight: 700; font-size: 0.75rem; box-shadow: 0 10px 25px rgba(0,0,0,0.5); transform: translateY(100px); opacity: 0; transition: all 0.3s ease;" class="font-mono">
+    Notificação
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MOTOR JAVASCRIPT: BUSCADOR GLOBAL, BANCO DE LEADS & AGENTES           -->
+  <!-- ===================================================================== -->
+  <script>
+    // 1. BANCO DE DADOS DE LEADS (COM PERSISTÊNCIA EM LOCALSTORAGE)
+    let LEADS = [
+      {
+        id: "tricicle",
+        name: "Autoescuela Tricicle",
+        city: "València",
+        district: "Patraix",
+        address: "C/ Fray Junípero Serra, 71 - 73, 46014 València",
+        landline: "+34 963 28 65 90",
+        whatsapp: "34652256911",
+        instagram: "autoescuela_tricicle",
+        country: "ES",
+        hasWebsite: true,
+        websiteUrl: "https://autoescuelatriciclevalencia.com",
+        rating: "4.3 (42 reseñas)",
+        vulnerabilities: "Textos antigos em inglês de seguros na home. Rodapé parado em 2022. Falta de botão WhatsApp direto no mobile.",
+        hasProCourses: true,
+        notes: "+40 anos de história. Especialistas em CAP e ADR. Muito fortes em Patraix."
+      },
+      {
+        id: "jorda-patraix",
+        name: "Autoescuela Jordá",
+        city: "València",
+        district: "Patraix",
+        address: "C/ Archiduque Carlos, 45, 46018 València",
+        landline: "+34 963 84 12 30",
+        whatsapp: "34610452390",
+        instagram: "autoescuelajorda",
+        country: "ES",
+        hasWebsite: false,
+        websiteUrl: "",
+        rating: "4.7 (89 reseñas)",
+        vulnerabilities: "100% SEM SITE. Depende apenas do Google Maps e perde matrículas jovens todo mês.",
+        hasProCourses: false,
+        notes: "Excelente reputação no Google Maps. Alunos elogiam a paciência dos instrutores."
+      },
+      {
+        id: "aula4-benimaclet",
+        name: "Autoescuela Aula 4",
+        city: "València",
+        district: "Benimaclet",
+        address: "Carrer del Dr. Vicent Zaragoza, 28, 46020 València",
+        landline: "+34 963 69 44 11",
+        whatsapp: "34644812399",
+        instagram: "autoescuelaaula4",
+        country: "ES",
+        hasWebsite: true,
+        websiteUrl: "https://autoescuelaaula4.com",
+        rating: "4.6 (112 reseñas)",
+        vulnerabilities: "Site não adaptado para smartphones. Lentidão no carregamento e falta de seletor de moto.",
+        hasProCourses: false,
+        notes: "Área universitária com enorme fluxo de jovens buscando carnet B e moto A2."
+      },
+      {
+        id: "ruzafa-express",
+        name: "Autoescuela Ruzafa",
+        city: "València",
+        district: "Ruzafa",
+        address: "Carrer de Maties Perelló, 14, 46006 València",
+        landline: "+34 963 34 50 20",
+        whatsapp: "34678129045",
+        instagram: "autoescuela_ruzafa",
+        country: "ES",
+        hasWebsite: false,
+        websiteUrl: "",
+        rating: "4.5 (64 reseñas)",
+        vulnerabilities: "100% SEM SITE. Bairro nobre e boêmio com público jovem disposto a pagar ticket alto.",
+        hasProCourses: false,
+        notes: "Público jovem urbano. Buscam Permiso B rápido e atendimento por WhatsApp."
+      }
+    ];
+
+    // Carregar dados salvos pelo usuário no navegador
+    const saved = localStorage.getItem('PROSPECTOR_LEADS_DATABASE_V2');
+    if (saved) {
+      try { LEADS = JSON.parse(saved); } catch(e) {}
+    }
+
+    function persistLeads() {
+      localStorage.setItem('PROSPECTOR_LEADS_DATABASE_V2', JSON.stringify(LEADS));
+    }
+
+    // 2. AGENTE 1 // SCOUT: RASTREAMENTO GLOBAL DE AUTOESCOLAS AO VIVO (NOMINATIM POI)
+    const scoutForm = document.getElementById('scout-search-form');
+    const scoutCityInput = document.getElementById('scout-city-input');
+    const scoutCountrySelect = document.getElementById('scout-country-select');
+    const scoutBtn = document.getElementById('scout-submit-btn');
+    const scoutBtnText = document.getElementById('scout-btn-text');
+    const scoutFeedback = document.getElementById('scout-feedback');
+    const scoutMapsShortcut = document.getElementById('scout-maps-shortcut');
+
+    scoutCityInput.addEventListener('input', () => {
+      const city = scoutCityInput.value.trim();
+      const country = scoutCountrySelect.value;
+      const term = country === 'BR' ? 'auto+escola' : 'autoescuela';
+      scoutMapsShortcut.href = `https://www.google.com/maps/search/${term}+${encodeURIComponent(city || 'Valencia')}`;
+    });
+
+    scoutForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const cityQuery = scoutCityInput.value.trim();
+      if (!cityQuery) return;
+
+      const country = scoutCountrySelect.value;
+      scoutBtn.disabled = true;
+      scoutBtnText.textContent = "Rastreando no Mapa...";
+      scoutFeedback.style.display = "block";
+      scoutFeedback.textContent = `Agente Scout buscando autoescolas em "${cityQuery}"...`;
+
+      try {
+        const queryTerm = country === 'BR' ? `auto escola em ${cityQuery}` : `autoescuela en ${cityQuery}`;
+        const nominatimUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(queryTerm)}&format=json&addressdetails=1&extratags=1&limit=25`;
+        
+        const res = await fetch(nominatimUrl, {
+          headers: { 'Accept': 'application/json' }
+        });
+        
+        if (!res.ok) throw new Error("Erro na resposta do serviço de mapas");
+        const data = await res.json();
+
+        if (!data || data.length === 0) {
+          scoutFeedback.textContent = `Nenhuma autoescola encontrada em "${cityQuery}". Dica: clique em "Maps ↗" ao lado para ver a lista no Google Maps e cole o telefone no botão "Novo Lead Manual".`;
+          return;
+        }
+
+        let addedCount = 0;
+        data.forEach(item => {
+          const rawName = item.name || (item.display_name ? item.display_name.split(',')[0] : "Autoescuela");
+          // Evitar duplicatas pelo nome
+          const exists = LEADS.some(l => l.name.toLowerCase() === rawName.toLowerCase());
+          if (exists) return;
+
+          const tags = item.extratags || {};
+          const addr = item.address || {};
+          
+          let phone = tags.phone || tags['contact:phone'] || tags['contact:mobile'] || "";
+          phone = phone.replace(/[^0-9]/g, '');
+          if (country === 'ES' && phone.length === 9 && (phone.startsWith('6') || phone.startsWith('7') || phone.startsWith('9'))) {
+            phone = "34" + phone;
+          } else if (country === 'BR' && (phone.length === 10 || phone.length === 11)) {
+            phone = "55" + phone;
+          }
+
+          const website = tags.website || tags['contact:website'] || "";
+          const district = addr.suburb || addr.quarter || addr.neighbourhood || addr.city_district || addr.city || cityQuery;
+          const fullAddress = item.display_name ? item.display_name.split(',').slice(0, 3).join(',') : `${district}, ${cityQuery}`;
+
+          let insta = tags['contact:instagram'] || tags.instagram || tags['contact:social'] || "";
+          if (insta) {
+            insta = insta.replace('@', '').replace(/^https?:\/\/(www\.)?instagram\.com\//i, '').replace(/\/$/, '');
+          }
+
+          const newLead = {
+            id: "lead-" + Date.now() + "-" + Math.floor(Math.random()*1000),
+            name: rawName,
+            city: addr.city || cityQuery,
+            district: district,
+            address: fullAddress,
+            landline: phone ? (phone.startsWith('34') ? `+${phone}` : phone) : "Consultar no Maps",
+            whatsapp: phone,
+            instagram: insta,
+            country: country,
+            hasWebsite: website.length > 5,
+            websiteUrl: website ? (website.startsWith('http') ? website : 'http://' + website) : "",
+            rating: "4.5 (Google Maps)",
+            vulnerabilities: website.length > 5 
+              ? "Site detectado. Requer auditoria mobile e botão de WhatsApp."
+              : "100% SEM SITE PRÓPRIO. Depende exclusivamente do Maps e perde novos alunos diariamente.",
+            hasProCourses: rawName.toLowerCase().includes('cap') || rawName.toLowerCase().includes('camion'),
+            notes: `Lead rastreado pelo Agente Scout em ${cityQuery}.`
+          };
+
+          LEADS.unshift(newLead);
+          addedCount++;
+        });
+
+        persistLeads();
+        updateCityDropdown();
+        updateMetrics();
+        renderLeadsList();
+
+        scoutFeedback.textContent = `Sucesso! O Agente Scout adicionou ${addedCount} novas autoescolas de "${cityQuery}" à base.`;
+        showToastNotification(`${addedCount} autoescolas de ${cityQuery} adicionadas!`);
+      } catch (err) {
+        scoutFeedback.textContent = `A busca automática oscilou. Use o botão "Maps ↗" para abrir a lista do Google Maps de ${cityQuery} e adicione os contatos pelo botão "Novo Lead Manual".`;
+      } finally {
+        scoutBtn.disabled = false;
+        scoutBtnText.textContent = "Buscar Autoescolas";
+      }
+    });
+
+    // 3. AGENTE 3 // PITCH: GERADOR DE MENSAGENS TÁTICAS DE WHATSAPP
+    function createPitch(lead) {
+      const isSpain = lead.country === "ES" || (lead.whatsapp && lead.whatsapp.startsWith("34"));
+
+      if (isSpain) {
+        if (lead.hasWebsite) {
+          // ROTA COM SITE (ESPANHA)
+          return {
+            lang: "Espanhol (València / Espanha)",
+            es: `Hola, buenas tardes.
+
+Os escribo porque he estado revisando vuestra web actual (${lead.websiteUrl.replace(/^https?:\/\//, '')}) y he notado que no está adaptada para que los alumnos jóvenes de ${lead.district} os contacten directamente por WhatsApp desde el móvil en un clic, además de ${lead.vulnerabilities.toLowerCase().includes('inglés') ? 'tener textos antiguos de plantilla en inglés en el código' : 'tener varios elementos lentos que dificultan ver precios y cursos'}.
+
+Para que veáis la diferencia, os he preparado sin ningún compromiso una maqueta moderna de cómo quedaría vuestra web renovada:
+ [ENLACE_DE_VUESTRA_MAQUETA_AQUÍ]
+
+(Si pulsáis en cualquier botón de la maqueta, veréis que ya está conectada directamente a este mismo WhatsApp).
+
+¿Sería una locura si le echáis un vistazo rápido de 30 segundos en el móvil cuando tengáis un hueco en secretaría?
+
+Un saludo cordial.`,
+            pt: `Olá, boa tarde.
+Escrevo porque estive revisando o site atual de vocês (${lead.websiteUrl.replace(/^https?:\/\//, '')}) e notei que não está adaptado para que os alunos jovens de ${lead.district} entrem em contato direto pelo WhatsApp em um clique, além de ${lead.vulnerabilities.toLowerCase()}.
+Para que vejam a diferença, preparei sem compromisso uma prévia moderna de como ficaria o site renovado de vocês:
+ [LINK DA SUA PRÉVIA NO NETLIFY/VERCEL]
+(Se clicarem em qualquer botão, verão que já abre neste mesmo WhatsApp de vocês).
+Seria uma loucura dar uma olhada rápida de 30 segundos no celular quando tiverem um tempinho na secretaria?
+Um abraço cordial.`,
+            tactic: `Auditoria de Falha Técnica + Demonstração ao Vivo no próprio WhatsApp + Pergunta Fechada buscando o 'NÃO' do Chris Voss ("¿Sería una locura?").`
+          };
+        } else {
+          // ROTA SEM SITE (ESPANHA)
+          return {
+            lang: "Espanhol (València / Espanha)",
+            es: `Hola, buenas tardes.
+
+Os escribo porque he visto vuestra excelente valoración en Google Maps (${lead.rating}) en la zona de ${lead.district}, pero me he dado cuenta de que no tenéis una página web propia activa para vuestra autoescuela.
+
+Hoy en día, casi el 90% de los chicos de 17 y 18 años que buscan sacarse el carnet B o de moto en ${lead.district} buscan en Google y acaban matriculándose en las autoescuelas que tienen web moderna con reserva directa por WhatsApp.
+
+Para ayudaros a captar esos alumnos sin que tengáis que complicaros la vida, os he diseñado por adelantado una maqueta exclusiva para ${lead.name} lista para usar:
+ [ENLACE_DE_VUESTRA_MAQUETA_AQUÍ]
+
+(Ya incluye vuestra dirección en ${lead.address.split(',')[0]} y enlace directo a este WhatsApp).
+
+¿Sería una mala idea si le echáis un vistazo de 30 segundos en el móvil a ver qué os parece?
+
+Un saludo cordial.`,
+            pt: `Olá, boa tarde.
+Escrevo porque vi a excelente avaliação de vocês no Google Maps (${lead.rating}) na região de ${lead.district}, mas notei que vocês não têm uma página web própria ativa.
+Hoje em dia, quase 90% dos jovens de 17 e 18 anos que querem tirar a habilitação B ou moto em ${lead.district} pesquisam no Google e acabam se matriculando nas autoescolas que têm site moderno com WhatsApp direto.
+Para ajudar vocês a captar esses alunos sem complicações, desenhei antecipadamente uma prévia exclusiva para a ${lead.name} pronta para usar:
+ [LINK DA SUA PRÉVIA NO NETLIFY/VERCEL]
+(Já inclui o endereço de vocês e botão direto para este WhatsApp).
+Seria uma má ideia dar uma olhada de 30 segundos no celular para ver o que acham?
+Um abraço cordial.`,
+            tactic: `Elogio de Autoridade do Maps + Conscientização da Perda Diária de Alunos + Oferta Irrecusável de Hormozi (o site já está pronto, sem esforço para ele).`
+          };
+        }
+      } else {
+        // ROTA BRASIL / OUTROS PAÍSES (PORTUGUÊS)
+        return {
+          lang: "Português do Brasil (CFC / CNH)",
+          es: `Olá, tudo bem?
+
+Vi a ótima pontuação de vocês no Google Maps (${lead.rating}) em ${lead.district}, mas notei que vocês ${lead.hasWebsite ? 'estão com o site desatualizado e sem botão direto de WhatsApp no celular' : 'ainda não possuem um site profissional ativo para a autoescola'}.
+
+Quase todo aluno de 18 anos que vai tirar a 1ª CNH pesquisa no celular antes de se matricular. Pensando nisso, desenhei por conta própria uma prévia moderna e exclusiva de como ficaria o novo site da ${lead.name}:
+ [COLE_AQUI_SEU_LINK_NETLIFY]
+
+(Inclusive, todos os botões da prévia já abrem mensagens direto para este WhatsApp de vocês).
+
+Seria uma má ideia dar uma olhada rápida de 30 segundos no celular para ver o que acham?
+
+Abraços!`,
+          pt: `Mensagem nativa para o Brasil aplicando Chris Voss e reversão total de risco.`,
+          tactic: `Abordagem de autoridade no Google Maps + demonstração do WhatsApp funcionando ao vivo.`
+        };
+      }
+    }
+
+    // 4. AGENTE 4 // ART DIRECTOR: BRIEFING PARA O PLAYBOOK DE DESIGN
+    function createDesignBriefing(lead) {
+      return `Novo projeto para criar no index.html seguindo rigorosamente o @PLAYBOOK_DIRECAO_DE_ARTE_AUTOESCOLAS.md:
+
+- Nome da Autoescola: ${lead.name}
+- Cidade / Bairro: ${lead.city || 'València'} (${lead.district})
+- Endereço Real: ${lead.address}
+- Telefone / WhatsApp Oficial: +${lead.whatsapp} (Fixo: ${lead.landline})
+- Situação Atual: ${lead.hasWebsite ? 'Possui site (' + lead.websiteUrl + ') com falhas: ' + lead.vulnerabilities : '100% SEM SITE PRÓPRIO. Criar presença do zero baseada no Google Maps.'}
+- Avaliação Google Maps: ${lead.rating}
+- Cursos Principais: ${lead.hasProCourses ? 'Coche Permiso B, Motos AM/A1/A2/A e Cursos Profissionais Pesados (Camión, Autobús, CAP e ADR)' : 'Coche Permiso B, Motos AM/A1/A2/A e Aulas para Habilitados'}
+- Observações: ${lead.notes}
+
+Por favor, defina o Conceito de Direção de Arte exclusivo para a ${lead.name}, construa o site completo com CSS estático pré-compilado embutido (sem dependência de cdn.tailwindcss.com e sem filtros pesados feTurbulence) e com todos os CTAs apontando para https://wa.me/${lead.whatsapp}.`;
+    }
+
+    // 5. RENDERIZAÇÃO DA INTERFACE & FILTROS
+    let currentFilter = "ALL";
+    let searchQuery = "";
+    let selectedCity = "ALL";
+
+    function updateCityDropdown() {
+      const citySelect = document.getElementById('city-select');
+      const uniqueCities = [...new Set(LEADS.map(l => l.city || l.district))].filter(Boolean);
+      
+      let html = '<option value="ALL">Todas as Cidades na Base</option>';
+      uniqueCities.forEach(c => {
+        html += `<option value="${c}">${c}</option>`;
+      });
+      citySelect.innerHTML = html;
+      citySelect.value = selectedCity;
+    }
+
+    function updateMetrics() {
+      const total = LEADS.length;
+      const noSite = LEADS.filter(l => !l.hasWebsite).length;
+      const hasSite = LEADS.filter(l => l.hasWebsite).length;
+      const hasWa = LEADS.filter(l => l.whatsapp && l.whatsapp.trim().length > 5).length;
+
+      document.getElementById('stat-total').textContent = total;
+      document.getElementById('stat-no-site').textContent = noSite;
+      document.getElementById('stat-has-site').textContent = hasSite;
+      document.getElementById('stat-wa').textContent = hasWa;
+
+      document.getElementById('count-all').textContent = total;
+      document.getElementById('count-no-site').textContent = noSite;
+      document.getElementById('count-has-site').textContent = hasSite;
+      document.getElementById('count-has-wa').textContent = hasWa;
+    }
+
+    function renderLeadsList() {
+      const container = document.getElementById('leads-container');
+      container.innerHTML = "";
+
+      const filtered = LEADS.filter(l => {
+        if (currentFilter === "NO_SITE" && l.hasWebsite) return false;
+        if (currentFilter === "HAS_SITE" && !l.hasWebsite) return false;
+        if (currentFilter === "HAS_WA" && (!l.whatsapp || l.whatsapp.trim().length <= 5)) return false;
+
+        const leadCity = l.city || l.district;
+        if (selectedCity !== "ALL" && leadCity !== selectedCity) return false;
+
+        if (searchQuery) {
+          const q = searchQuery.toLowerCase();
+          const match = l.name.toLowerCase().includes(q) ||
+                        (l.district && l.district.toLowerCase().includes(q)) ||
+                        (l.city && l.city.toLowerCase().includes(q)) ||
+                        (l.address && l.address.toLowerCase().includes(q)) ||
+                        (l.whatsapp && l.whatsapp.includes(q));
+          if (!match) return false;
+        }
+        return true;
+      });
+
+      document.getElementById('leads-visible-count').textContent = filtered.length;
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="padding: 3rem 1.5rem; text-align: center; border-radius: 0.75rem; background-color: var(--asphalt-soft); border: 1px dashed rgba(255,255,255,0.2);">
+            <div style="font-size: 1.5rem; font-weight: 800; text-transform: uppercase; color: #FFFFFF;" class="font-display">Nenhuma autoescola encontrada com este filtro</div>
+            <p style="font-size: 0.8rem; color: var(--ink-muted); margin-top: 0.35rem;" class="font-mono">Digite o nome de uma cidade na barra amarela acima e clique em "Buscar Autoescolas" para carregar novas!</p>
+          </div>
+        `;
+        return;
+      }
+
+      filtered.forEach(lead => {
+        const pitch = createPitch(lead);
+        const encodedWa = encodeURIComponent(pitch.es);
+        const waLink = lead.whatsapp ? `https://wa.me/${lead.whatsapp}?text=${encodedWa}` : '#';
+
+        const card = document.createElement('div');
+        card.className = "card-asphalt";
+        card.style.padding = "1.25rem 1.5rem";
+        card.innerHTML = `
+          <div style="display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem;">
+            <div style="display: flex; flex-direction: column; gap: 0.35rem;">
+              <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; font-size: 0.7rem;" class="font-mono">
+                <span class="${lead.hasWebsite ? 'badge-has-site' : 'badge-no-site'}">
+                  ${lead.hasWebsite ? 'COM SITE · RENOVAÇÃO' : ' 100% SEM SITE · PRIORIDADE MÁXIMA'}
+                </span>
+                <span style="background-color: rgba(255,255,255,0.06); padding: 0.2rem 0.5rem; border-radius: 4px; color: #FFFFFF; font-weight: 600;">
+                  ${lead.city || 'Espanha'} · ${lead.district}
+                </span>
+                ${lead.whatsapp ? '<span class="badge-wa">WHATSAPP CONFIRMADO</span>' : '<span style="color: rgba(255,255,255,0.4); font-size: 0.65rem;">TELEFONE A VALIDAR</span>'}
+                ${lead.instagram ? `
+                  <a href="https://www.instagram.com/${lead.instagram.replace('@','')}/" target="_blank" rel="noopener noreferrer"
+                     title="Ver perfil oficial no Instagram"
+                     style="display: inline-flex; align-items: center; gap: 0.35rem; background: linear-gradient(45deg, rgba(240,148,51,0.18), rgba(225,48,108,0.18)); border: 1px solid rgba(225,48,108,0.45); color: #FF7096; padding: 0.2rem 0.55rem; border-radius: 4px; text-decoration: none; font-size: 0.7rem; font-weight: 700;">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                    <span>@${lead.instagram.replace('@','')}</span>
+                  </a>
+                ` : `
+                  <a href="https://www.google.com/search?q=${encodeURIComponent('site:instagram.com ' + lead.name + ' ' + (lead.city || lead.district || ''))}" target="_blank" rel="noopener noreferrer"
+                     title="Buscar Instagram desta autoescola no Google"
+                     style="display: inline-flex; align-items: center; gap: 0.35rem; background-color: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); color: var(--ink-muted); padding: 0.2rem 0.55rem; border-radius: 4px; text-decoration: none; font-size: 0.7rem;">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                    <span>Localizar Instagram ↗</span>
+                  </a>
+                `}
+              </div>
+
+              <h2 style="font-size: 1.75rem; font-weight: 800; text-transform: uppercase; color: #FFFFFF; line-height: 1.1; margin-top: 0.15rem;" class="font-display">
+                ${lead.name}
+              </h2>
+
+              <div style="font-size: 0.75rem; color: var(--ink-muted); display: flex; flex-wrap: wrap; gap: 0.75rem;" class="font-mono">
+                <span>${lead.address}</span>
+                <span style="color: var(--tricicle); font-weight: 600;">Maps: ${lead.rating}</span>
+              </div>
+            </div>
+
+            <!-- Botões Principais -->
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;" class="font-mono">
+              <button type="button" onclick="openPitchModal('${lead.id}')" class="btn-outline" style="font-size: 0.75rem; text-transform: uppercase; padding: 0.65rem 0.9rem;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--tricicle);"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                <span>Ver Pitch Tático</span>
+              </button>
+
+              ${lead.whatsapp ? `
+                <a href="${waLink}" target="_blank" rel="noopener noreferrer" class="btn-tricicle" style="font-size: 0.75rem; text-transform: uppercase; padding: 0.65rem 1.1rem;">
+                  <span>Chamar no WhatsApp</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
+                </a>
+              ` : `
+                <a href="https://www.google.com/maps/search/${encodeURIComponent(lead.name + ' ' + (lead.city || ''))}" target="_blank" rel="noopener noreferrer" class="btn-outline" style="font-size: 0.75rem; text-transform: uppercase; padding: 0.65rem 0.9rem;">
+                  <span>Checar WhatsApp no Maps ↗</span>
+                </a>
+              `}
+            </div>
+          </div>
+
+          <!-- Diagnóstico Técnico -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.75rem; padding-top: 0.75rem; font-size: 0.75rem;" class="font-mono">
+            <div style="padding: 0.75rem 0.85rem; border-radius: 6px; background-color: rgba(14,16,18,0.7); border: 1px solid rgba(255,255,255,0.08);">
+              <div style="color: var(--ink-muted); text-transform: uppercase; font-weight: 700; margin-bottom: 0.2rem;">
+                Diagnóstico do Agente Auditor:
+              </div>
+              <p style="color: rgba(244,241,234,0.9); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.75rem; line-height: 1.4;">
+                ${lead.vulnerabilities}
+              </p>
+            </div>
+
+            <div style="padding: 0.75rem 0.85rem; border-radius: 6px; background-color: rgba(14,16,18,0.7); border: 1px solid rgba(255,255,255,0.08);">
+              <div style="color: var(--ink-muted); text-transform: uppercase; font-weight: 700; margin-bottom: 0.2rem;">Canais & Presença:</div>
+              <div style="display: flex; flex-direction: column; gap: 0.15rem; color: rgba(244,241,234,0.9);">
+                <div>WhatsApp: <strong style="color: var(--tricicle);">${lead.whatsapp ? '+' + lead.whatsapp : 'Não registrado'}</strong></div>
+                <div>Instagram: ${lead.instagram ? `<a href="https://www.instagram.com/${lead.instagram.replace('@','')}/" target="_blank" style="color: #FF7096; text-decoration: underline; font-weight: 600;">@${lead.instagram.replace('@','')}</a>` : `<a href="https://www.google.com/search?q=${encodeURIComponent('site:instagram.com ' + lead.name + ' ' + (lead.city || lead.district || ''))}" target="_blank" style="color: var(--ink-muted); text-decoration: underline;">Localizar perfil ↗</a>`}</div>
+                <div>Fixo: <span>${lead.landline}</span></div>
+                ${lead.hasWebsite ? `<div>Site: <a href="${lead.websiteUrl}" target="_blank" style="color: #60A5FA; text-decoration: underline;">${lead.websiteUrl.replace(/^https?:\/\//, '')}</a></div>` : '<div style="color: #FB923C; font-weight: 700;">Sem website próprio</div>'}
+              </div>
+            </div>
+          </div>
+
+          <!-- Rodapé de Ação -->
+          <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; padding-top: 0.65rem; border-top: 1px solid rgba(255,255,255,0.05); font-size: 0.7rem; color: var(--ink-muted);" class="font-mono">
+            <span>Obs: ${lead.notes}</span>
+            <button type="button" onclick="copyBriefing('${lead.id}')" style="background: none; border: none; color: var(--tricicle); cursor: pointer; text-decoration: underline; font-family: inherit; font-size: inherit;">
+              Copiar Briefing de Design para a IA
+            </button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // 6. MODAL & INTERAÇÕES
+    let activeLead = null;
+    function openPitchModal(id) {
+      const lead = LEADS.find(l => l.id === id);
+      if (!lead) return;
+      activeLead = lead;
+
+      const p = createPitch(lead);
+      document.getElementById('modal-lead-name').textContent = lead.name;
+      const igH = lead.instagram ? lead.instagram.replace('@','') : '';
+      const igL = igH ? ` · <a href="https://www.instagram.com/${igH}/" target="_blank" style="color: #FF7096; text-decoration: underline; font-weight: 600;">@${igH} ↗</a>` : '';
+      document.getElementById('modal-lead-district').innerHTML = `${lead.city || ''} · ${lead.district} · WhatsApp: ${lead.whatsapp ? '+' + lead.whatsapp : 'A confirmar'}${igL}`;
+      document.getElementById('modal-pitch-lang').textContent = p.lang;
+      document.getElementById('modal-pitch-es').value = p.es;
+      document.getElementById('modal-pitch-pt').textContent = p.pt;
+      document.getElementById('modal-pitch-tactic').textContent = p.tactic;
+
+      const enc = encodeURIComponent(p.es);
+      document.getElementById('modal-btn-wa').href = lead.whatsapp ? `https://wa.me/${lead.whatsapp}?text=${enc}` : '#';
+
+      document.getElementById('pitch-modal').classList.remove('hidden');
+    }
+
+    document.getElementById('modal-close-btn').addEventListener('click', () => {
+      document.getElementById('pitch-modal').classList.add('hidden');
+    });
+
+    document.getElementById('btn-copy-pitch').addEventListener('click', () => {
+      const text = document.getElementById('modal-pitch-es').value;
+      navigator.clipboard.writeText(text).then(() => {
+        showToastNotification("Mensagem copiada para a área de transferência!");
+        document.getElementById('copy-btn-text').textContent = "Copiado!";
+        setTimeout(() => { document.getElementById('copy-btn-text').textContent = "Copiar"; }, 2000);
+      });
+    });
+
+    document.getElementById('modal-btn-ig-dm').addEventListener('click', () => {
+      if (!activeLead) return;
+      const isSpain = activeLead.country === "ES" || (activeLead.whatsapp && activeLead.whatsapp.startsWith("34"));
+      const dmMsg = isSpain
+        ? `Hola! Os escribo por aquí porque he estado mirando vuestro perfil y vuestra web en ${activeLead.city || activeLead.district}. Vi vuestras excelentes reseñas de alumnos pero os preparé una propuesta exclusiva para recibir matrículas directas por WhatsApp desde el móvil. ¿Os parece si os paso el enlace de la maqueta por aquí para que le echéis un vistazo rápido de 30 segundos? Un saludo!`
+        : `Olá! Escrevo por aqui porque vi o perfil de vocês e o trabalho em ${activeLead.city || activeLead.district}. Notei a ótima nota dos alunos mas preparei uma prévia exclusiva para gerar matrículas direto no WhatsApp. Posso mandar o link rápido de 30 segundos aqui no direct para darem uma olhada? Abraços!`;
+
+      navigator.clipboard.writeText(dmMsg).then(() => {
+        showToastNotification("Pitch para Instagram Direct (DM) copiado!");
+      });
+    });
+
+    document.getElementById('modal-btn-briefing').addEventListener('click', () => {
+      if (activeLead) copyBriefing(activeLead.id);
+    });
+
+    function copyBriefing(id) {
+      const lead = LEADS.find(l => l.id === id);
+      if (!lead) return;
+      const b = createDesignBriefing(lead);
+      navigator.clipboard.writeText(b).then(() => {
+        showToastNotification(`Briefing de ${lead.name} copiado para a IA!`);
+      });
+    }
+
+    function showToastNotification(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.style.transform = "translateY(0)";
+      t.style.opacity = "1";
+      setTimeout(() => {
+        t.style.transform = "translateY(100px)";
+        t.style.opacity = "0";
+      }, 3000);
+    }
+
+    // 7. FILTROS E BUSCA LOCAL
+    document.getElementById('search-input').addEventListener('input', (e) => {
+      searchQuery = e.target.value.trim();
+      renderLeadsList();
+    });
+
+    document.getElementById('city-select').addEventListener('change', (e) => {
+      selectedCity = e.target.value;
+      renderLeadsList();
+    });
+
+    document.querySelectorAll('.filter-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentFilter = btn.getAttribute('data-filter');
+        document.querySelectorAll('.filter-tab').forEach(b => {
+          b.style.backgroundColor = "rgba(255,255,255,0.05)";
+          b.style.color = "#FFFFFF";
+          b.style.fontWeight = "500";
+        });
+        btn.style.backgroundColor = "var(--tricicle)";
+        btn.style.color = "var(--asphalt)";
+        btn.style.fontWeight = "700";
+        renderLeadsList();
+      });
+    });
+
+    // 8. MODAL NOVO LEAD MANUAL
+    const addModal = document.getElementById('add-modal');
+    document.getElementById('btn-open-add-modal').addEventListener('click', () => addModal.classList.remove('hidden'));
+    document.getElementById('add-modal-close-btn').addEventListener('click', () => addModal.classList.add('hidden'));
+    document.getElementById('add-modal-cancel').addEventListener('click', () => addModal.classList.add('hidden'));
+
+    document.getElementById('add-lead-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('add-name').value.trim();
+      const district = document.getElementById('add-district').value.trim();
+      let phone = document.getElementById('add-phone').value.replace(/[^0-9]/g, '');
+      if (phone.length === 9 && (phone.startsWith('6') || phone.startsWith('7'))) {
+        phone = "34" + phone;
+      }
+      const address = document.getElementById('add-address').value.trim() || `${district}`;
+      const site = document.getElementById('add-site').value.trim();
+      const rating = document.getElementById('add-rating').value.trim() || "4.5 (Google Maps)";
+      let addInsta = document.getElementById('add-instagram').value.trim();
+      if (addInsta) {
+        addInsta = addInsta.replace('@', '').replace(/^https?:\/\/(www\.)?instagram\.com\//i, '').replace(/\/$/, '');
+      }
+
+      const newL = {
+        id: "lead-" + Date.now(),
+        name: name,
+        city: district,
+        district: district,
+        address: address,
+        landline: phone,
+        whatsapp: phone,
+        instagram: addInsta,
+        country: phone.startsWith('55') ? 'BR' : 'ES',
+        hasWebsite: site.length > 3,
+        websiteUrl: site ? (site.startsWith('http') ? site : 'https://' + site) : '',
+        rating: rating,
+        vulnerabilities: site.length > 3
+          ? "Site cadastrado. Verificar experiência no celular e botão de WhatsApp."
+          : "100% SEM SITE PRÓPRIO. Oportunidade máxima de criar presença profissional.",
+        hasProCourses: false,
+        notes: "Lead cadastrado manualmente"
+      };
+
+      LEADS.unshift(newL);
+      persistLeads();
+      updateCityDropdown();
+      updateMetrics();
+      renderLeadsList();
+      addModal.classList.add('hidden');
+      document.getElementById('add-lead-form').reset();
+      showToastNotification(`Lead ${name} cadastrado com sucesso!`);
+    });
+
+    // 9. EXPORTAR CSV
+    document.getElementById('btn-export-csv').addEventListener('click', () => {
+      let csv = "Nome,Cidade,Distrito,Endereco,WhatsApp,Instagram,Tem_Site,URL_Site,Avaliacao,Diagnostico\n";
+      LEADS.forEach(l => {
+        csv += `"${l.name}","${l.city || ''}","${l.district}","${l.address}","+${l.whatsapp}","${l.instagram ? '@' + l.instagram : ''}","${l.hasWebsite ? 'SIM' : 'NAO'}","${l.websiteUrl}","${l.rating}","${l.vulnerabilities.replace(/"/g, '""')}"\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `leads_autoescolas_global_${new Date().toISOString().slice(0,10)}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToastNotification("Planilha CSV exportada!");
+    });
+
+    // Inicialização
+    updateCityDropdown();
+    updateMetrics();
+    renderLeadsList();
+  </script>
+</body>
+</html>
