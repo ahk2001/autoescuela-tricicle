@@ -3,27 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Autoescuela Tricicle Valencia | +40 Años en Patraix — Coche, Moto, Camión, CAP y ADR</title>
-  <meta name="description" content="Autoescuela Tricicle en C/ Fray Junípero Serra 71-73, Patraix (València). Más de 40 años formando conductores con flota propia, aula continua y test DGT 24h." />
+  <title>Autoescuela Tricicle Valencia | Tu Libertad al Volante en Patraix</title>
+  <meta name="description" content="Autoescuela Tricicle en C/ Fray Junípero Serra 71-73, Patraix (València). Aprende a conducir sin miedo, con paciencia y a la primera. Coche, moto, camión y CAP." />
 
-  <!-- Tipografía Editorial & Señalización Vial Europea -->
+  <!-- Tipografía Editorial de Alto Impacto & Sensibilidad Humana -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <style>
-    /* DESIGN TOKENS */
+    /* DESIGN TOKENS EDITORIAL & SINALIZAÇÃO MEDITERRÂNEA */
     :root {
-      --bg-paper: #F5F2EB;
-      --bg-paper-dark: #EAE5D9;
-      --asphalt: #0E1012;
-      --asphalt-soft: #171A1E;
-      --asphalt-card: #1F2329;
+      --bg-paper: #F6F4EE;
+      --bg-paper-dark: #EAE6DB;
+      --asphalt: #0C0E11;
+      --asphalt-soft: #16191E;
+      --asphalt-card: #1F232B;
       --tricicle: #F5CE00;
       --tricicle-hover: #FFD814;
-      --concrete: #D8D2C4;
-      --ink-muted: #555A62;
+      --tricicle-glow: rgba(245, 206, 0, 0.25);
+      --ink-muted: #525761;
       --apto: #15803D;
+      --apto-light: #DCFCE7;
+      --warm-border: rgba(12, 14, 17, 0.12);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -33,7 +35,7 @@
       color: var(--asphalt);
       font-family: 'Plus Jakarta Sans', sans-serif;
       overflow-x: hidden;
-      line-height: 1.55;
+      line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -42,84 +44,90 @@
     .font-mono { font-family: 'JetBrains Mono', monospace; }
     .font-sans { font-family: 'Plus Jakarta Sans', sans-serif; }
 
-    /* Grade Arquitetônica Técnica de Fundo */
+    /* Grade Arquitetônica Suave */
     .bg-grid-light {
-      background-size: 48px 48px;
+      background-size: 44px 44px;
       background-image:
-        linear-gradient(to right, rgba(14, 16, 18, 0.045) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(14, 16, 18, 0.045) 1px, transparent 1px);
+        linear-gradient(to right, rgba(12, 14, 17, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(12, 14, 17, 0.04) 1px, transparent 1px);
     }
+
     .bg-grid-dark {
-      background-size: 48px 48px;
+      background-size: 40px 40px;
       background-image:
-        linear-gradient(to right, rgba(245, 206, 0, 0.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(245, 206, 0, 0.05) 1px, transparent 1px);
+        linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
     }
 
-    /* Utilitários de Layout & Contêiner */
     .container-custom {
-      max-width: 1280px;
-      margin-left: auto;
-      margin-right: auto;
-      padding-left: 1.25rem;
-      padding-right: 1.25rem;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
     }
-    @media (min-width: 640px) { .container-custom { padding-left: 2rem; padding-right: 2rem; } }
 
-    /* Botões de Ação */
+    /* BOTÕES COM FEEDBACK TÁTIL */
     .btn-tricicle {
       background-color: var(--tricicle);
       color: var(--asphalt);
-      font-weight: 700;
+      font-weight: 800;
       border: 2px solid var(--asphalt);
-      border-radius: 0.5rem;
       box-shadow: 4px 4px 0px var(--asphalt);
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 0.6rem;
       text-decoration: none;
+      transition: all 0.15s ease-out;
       cursor: pointer;
+      user-select: none;
+      border-radius: 6px;
     }
     .btn-tricicle:hover {
       background-color: var(--tricicle-hover);
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0px var(--asphalt);
+    }
+    .btn-tricicle:active {
       transform: translate(2px, 2px);
-      box-shadow: 2px 2px 0px var(--asphalt);
+      box-shadow: 1px 1px 0px var(--asphalt);
     }
 
     .btn-outline-dark {
       background-color: #FFFFFF;
       color: var(--asphalt);
-      font-weight: 600;
-      border: 1px solid rgba(14, 16, 18, 0.25);
-      border-radius: 0.5rem;
-      transition: all 0.2s ease;
+      font-weight: 700;
+      border: 2px solid var(--asphalt);
+      box-shadow: 4px 4px 0px var(--asphalt);
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
+      gap: 0.6rem;
       text-decoration: none;
+      transition: all 0.15s ease-out;
       cursor: pointer;
+      user-select: none;
+      border-radius: 6px;
     }
     .btn-outline-dark:hover {
       background-color: var(--bg-paper-dark);
-      border-color: var(--asphalt);
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0px var(--asphalt);
     }
 
-    /* Spotlight Card Mouse Glow (aceternity/ui) */
+    /* CARDS EDITORIAL INTERATIVOS COM SPOTLIGHT */
     .spotlight-card {
       position: relative;
       overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
     .spotlight-card::before {
-      content: "";
+      content: '';
       position: absolute;
       inset: 0;
       background: radial-gradient(
         500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-        rgba(245, 206, 0, 0.12),
-        transparent 50%
+        rgba(245, 206, 0, 0.14),
+        transparent 55%
       );
       opacity: 0;
       transition: opacity 0.35s ease;
@@ -128,10 +136,10 @@
     }
     .spotlight-card:hover::before { opacity: 1; }
 
-    /* Zoom Suave em Fotos */
+    /* Zoom em Imagens Emocionais */
     .img-zoom-container {
       overflow: hidden;
-      border-radius: 0.75rem;
+      border-radius: 0.85rem;
       position: relative;
     }
     .img-zoom-container img {
@@ -142,13 +150,13 @@
       object-fit: cover;
     }
     .img-zoom-container:hover img {
-      transform: scale(1.06);
+      transform: scale(1.05);
     }
 
-    /* Infinite Marquee com Fade Lateral */
+    /* Infinite Marquee de Sinalização */
     .marquee-mask {
-      mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
-      -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+      mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
     }
     @keyframes marquee-anim {
       from { transform: translateX(0); }
@@ -157,25 +165,14 @@
     .marquee-track {
       display: flex;
       width: max-content;
-      animation: marquee-anim 32s linear infinite;
+      animation: marquee-anim 34s linear infinite;
     }
     .marquee-track:hover { animation-play-state: paused; }
 
-    /* Faixa de Sinalização */
-    .road-band {
-      background: repeating-linear-gradient(
-        -45deg,
-        #0E1012,
-        #0E1012 8px,
-        #F5CE00 8px,
-        #F5CE00 16px
-      );
-    }
-
-    /* Revelação Suave no Scroll */
+    /* Revelação no Scroll */
     .reveal-up {
       opacity: 0;
-      transform: translateY(24px);
+      transform: translateY(22px);
       transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .reveal-up.is-visible {
@@ -183,20 +180,38 @@
       transform: translateY(0);
     }
 
-    /* Flutuadores de Telemetria sobre Imagens */
+    /* Pílulas Flutuantes com Blur */
     .floating-pill {
-      background: rgba(14, 16, 18, 0.88);
+      background: rgba(12, 14, 17, 0.88);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(245, 206, 0, 0.4);
+      border: 1px solid rgba(245, 206, 0, 0.45);
       color: #FFFFFF;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
       border-radius: 9999px;
-      padding: 0.45rem 0.9rem;
+      padding: 0.45rem 0.95rem;
       font-size: 0.75rem;
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.55rem;
+    }
+
+    /* Placa Verde "L" Oficial Espanhola */
+    .l-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 38px;
+      background-color: #0E6838;
+      border: 2px solid #FFFFFF;
+      border-radius: 4px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+      color: #FFFFFF;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1.6rem;
+      line-height: 1;
     }
 
     /* Scrollbar */
@@ -210,43 +225,47 @@
 </head>
 <body class="bg-grid-light">
 
-  <!-- BARRA SUPERIOR: COORDENADAS PATRAIX & STATUS AO VIVO -->
-  <div style="background-color: var(--asphalt); color: var(--bg-paper); border-bottom: 1px solid rgba(255,255,255,0.1); padding: 0.6rem 0; font-size: 0.75rem;" class="font-mono">
-    <div class="container-custom" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem;">
+  <!-- ===================================================================== -->
+  <!-- BARRA SUPERIOR: LOCALIZAÇÃO PATRAIX & ATENDIMENTO HUMANO              -->
+  <!-- ===================================================================== -->
+  <div style="background-color: var(--asphalt); color: var(--bg-paper); border-bottom: 1px solid rgba(255,255,255,0.1); padding: 0.65rem 0; font-size: 0.75rem;" class="font-mono">
+    <div class="container-custom" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.6rem;">
       <div style="display: flex; align-items: center; gap: 0.85rem;">
-        <span style="color: var(--tricicle); font-weight: 700; display: inline-flex; align-items: center; gap: 0.35rem;">
+        <span style="color: var(--tricicle); font-weight: 700; display: inline-flex; align-items: center; gap: 0.4rem;">
           <span style="width: 8px; height: 8px; border-radius: 50%; background-color: var(--tricicle); display: inline-block;"></span>
           PATRAIX · VALÈNCIA
         </span>
         <span style="color: rgba(255,255,255,0.25);">|</span>
-        <span style="color: rgba(255,255,255,0.85);">C/ FRAY JUNÍPERO SERRA, 71 - 73 (46014)</span>
+        <span style="color: rgba(255,255,255,0.85);">C/ Fray Junípero Serra, 71 - 73 (46014)</span>
       </div>
-      <div style="display: flex; align-items: center; gap: 1rem;">
-        <span id="live-status-top" style="color: rgba(255,255,255,0.7);">LUN–VIE 09:00–21:00</span>
+      <div style="display: flex; align-items: center; gap: 1.25rem;">
+        <span style="color: rgba(255,255,255,0.7);">Lunes a Viernes 09:00 a 21:00</span>
         <a href="tel:+34963286590" style="color: var(--tricicle); font-weight: 700; text-decoration: none;">+34 963 28 65 90</a>
       </div>
     </div>
   </div>
 
-  <!-- HEADER NAVEGAÇÃO COM LOGO OFICIAL VETORIAL -->
-  <header style="background-color: rgba(245, 242, 235, 0.94); border-bottom: 1px solid rgba(14, 16, 18, 0.15); position: sticky; top: 0; z-index: 40; backdrop-filter: blur(10px); padding: 0.85rem 0;">
+  <!-- ===================================================================== -->
+  <!-- HEADER NAVEGAÇÃO COM LOGO OFICIAL VETORIAL                            -->
+  <!-- ===================================================================== -->
+  <header style="background-color: rgba(246, 244, 238, 0.95); border-bottom: 1px solid rgba(12, 14, 17, 0.15); position: sticky; top: 0; z-index: 40; backdrop-filter: blur(10px); padding: 0.85rem 0;">
     <div class="container-custom" style="display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;">
       
-      <!-- Logo Oficial Tricicle (Vetorizada em SVG de alta nitidez) -->
+      <!-- Logo Oficial Tricicle -->
       <a href="#" style="display: flex; align-items: center; gap: 0.85rem; text-decoration: none; color: inherit;">
-        <div style="width: 52px; height: 52px; border-radius: 50%; border: 2px solid var(--tricicle); background: #FFFFFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
-          <svg viewBox="0 0 120 100" style="width: 42px; height: 42px;" aria-hidden="true">
+        <div style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--tricicle); background: #FFFFFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+          <svg viewBox="0 0 120 100" style="width: 40px; height: 40px;" aria-hidden="true">
             <path d="M10 62 C14 34, 38 16, 62 16 C70 16, 75 24, 80 36 L88 36 C102 37, 110 47, 112 57 L114 62 Z" fill="#F5CE00"/>
             <path d="M20 62 A13 13 0 0 1 46 62 Z" fill="#FFFFFF"/>
             <path d="M80 62 A13 13 0 0 1 106 62 Z" fill="#FFFFFF"/>
             <path d="M20 62 A13 13 0 0 0 46 62 Z" fill="#F5CE00"/>
             <path d="M80 62 A13 13 0 0 0 106 62 Z" fill="#F5CE00"/>
-            <text x="63" y="49" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5" font-weight="700" fill="#0E1012">Autoescuela</text>
-            <text x="63" y="61" text-anchor="middle" font-family="Barlow Condensed, sans-serif" font-size="14" font-weight="800" letter-spacing="0.6" fill="#0E1012">TRICICLE</text>
+            <text x="63" y="49" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5" font-weight="700" fill="#0C0E11">Autoescuela</text>
+            <text x="63" y="61" text-anchor="middle" font-family="Barlow Condensed, sans-serif" font-size="14" font-weight="800" letter-spacing="0.6" fill="#0C0E11">TRICICLE</text>
           </svg>
         </div>
         <div>
-          <div style="font-size: 1.5rem; font-weight: 800; text-transform: uppercase; line-height: 1;" class="font-display">
+          <div style="font-size: 1.45rem; font-weight: 800; text-transform: uppercase; line-height: 1;" class="font-display">
             AUTOESCUELA <span style="background-color: var(--tricicle); padding: 0.1rem 0.35rem;">TRICICLE</span>
           </div>
           <div style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-muted); margin-top: 0.15rem;" class="font-mono">
@@ -256,12 +275,13 @@
       </a>
 
       <!-- Menu Editorial -->
-      <nav style="display: none; align-items: center; gap: 2rem; font-size: 0.85rem; font-weight: 600;" class="nav-desktop">
-        <a href="#flota" style="color: var(--asphalt); text-decoration: none;">Flota y Vehículos</a>
-        <a href="#permisos" style="color: var(--asphalt); text-decoration: none;">Coche y Moto</a>
-        <a href="#profesional" style="color: var(--asphalt); text-decoration: none;">Camión, CAP & ADR</a>
-        <a href="#planificador" style="color: var(--asphalt); text-decoration: none;">Planificador DGT</a>
-        <a href="#ubicacion" style="color: var(--asphalt); text-decoration: none;">Ubicación</a>
+      <nav style="display: none; align-items: center; gap: 1.75rem; font-size: 0.85rem; font-weight: 600;" class="nav-desktop">
+        <a href="#libertad" style="color: var(--asphalt); text-decoration: none;">Tu Libertad</a>
+        <a href="#metodo" style="color: var(--asphalt); text-decoration: none;">Sin Miedo</a>
+        <a href="#flota" style="color: var(--asphalt); text-decoration: none;">Flota de Prácticas</a>
+        <a href="#testimonios" style="color: var(--asphalt); text-decoration: none;">Aprobados</a>
+        <a href="#planificador" style="color: var(--asphalt); text-decoration: none;">Plan DGT</a>
+        <a href="#contacto-humano" style="color: var(--asphalt); text-decoration: none;">Ven a Vernos</a>
       </nav>
 
       <!-- CTA WhatsApp Top -->
@@ -269,7 +289,7 @@
         <a href="https://wa.me/34652256911?text=Hola%20Autoescuela%20Tricicle%2C%20quiero%20informaci%C3%B3n%20sobre%20matr%C3%ADculas%20y%20precios%20en%20Valencia."
            target="_blank" rel="noopener noreferrer"
            class="btn-tricicle font-mono" style="font-size: 0.75rem; text-transform: uppercase; padding: 0.65rem 1.15rem;">
-          <span>Pedir Oferta por WhatsApp</span>
+          <span>Hablar por WhatsApp</span>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
         </a>
       </div>
@@ -281,81 +301,80 @@
   </style>
 
   <!-- ===================================================================== -->
-  <!-- HERO SPLIT-SCREEN: RESPIRADO, FOTOGRÁFICO, COM MOTION E MENOS TEXTO   -->
+  <!-- HERO COM ALTA EMOÇÃO: O SENTIMENTO DE LIBERDADE E VITÓRIA              -->
   <!-- ===================================================================== -->
   <section style="padding: 3.5rem 0 4.5rem; position: relative; overflow: hidden;">
     <div class="container-custom">
       <div style="display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center;" class="hero-grid">
 
-        <!-- Coluna Esquerda: Título Editorial, Convicção e Menos Bloco de Texto -->
-        <div style="display: flex; flex-direction: column; gap: 1.5rem;" class="reveal-up">
-          <div style="display: inline-flex; align-items: center; border: 1px solid var(--asphalt); background: #FFFFFF; box-shadow: 3px 3px 0px var(--asphalt); width: fit-content;">
-            <span style="background-color: var(--tricicle); color: var(--asphalt); font-weight: 800; font-size: 0.75rem; padding: 0.35rem 0.65rem; border-right: 1px solid var(--asphalt);" class="font-mono">
-              PATRAIX · 46014
-            </span>
-            <span style="font-size: 0.75rem; font-weight: 600; padding: 0.35rem 0.85rem; text-transform: uppercase;" class="font-mono">
-              +40 Años Formando Conductores
+        <!-- Coluna Esquerda: Conexão Emocional Imediata & Desejo de Conquista -->
+        <div style="display: flex; flex-direction: column; gap: 1.35rem;" class="reveal-up">
+          
+          <div style="display: inline-flex; align-items: center; gap: 0.5rem; border: 1px solid var(--asphalt); background: #FFFFFF; box-shadow: 3px 3px 0px var(--asphalt); width: fit-content; padding: 0.35rem 0.75rem;">
+            <div class="l-badge" style="width: 22px; height: 26px; font-size: 1.1rem;">L</div>
+            <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase;" class="font-mono">
+              TU CARNET A LA PRIMERA EN PATRAIX
             </span>
           </div>
 
-          <h1 style="font-size: clamp(2.8rem, 5.5vw, 4.8rem); font-weight: 800; text-transform: uppercase; line-height: 0.95; letter-spacing: -0.02em; color: var(--asphalt);" class="font-display">
-            TU CARNET EN VALÈNCIA
-            <span style="display: block; font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; text-transform: none; font-size: clamp(2.4rem, 4.8vw, 4.2rem); margin-top: 0.25rem;">
-              sin rodeos, con paciencia y precio honesto.
+          <h1 style="font-size: clamp(2.8rem, 5.5vw, 4.6rem); font-weight: 800; text-transform: uppercase; line-height: 0.95; letter-spacing: -0.02em; color: var(--asphalt);" class="font-display">
+            ESE MOMENTO EN QUE SUBES,
+            <span style="display: block; font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; text-transform: none; font-size: clamp(2.5rem, 5vw, 4.2rem); margin-top: 0.25rem; color: #16191E;">
+              pones tu música y eliges el destino tú.
             </span>
           </h1>
 
-          <p style="font-size: 1.05rem; color: var(--ink-muted); max-width: 520px; line-height: 1.6;">
-            Aprende a conducir con profesores que te transmiten tranquilidad desde el primer día. Coche turismo, moto o formación profesional de camión y CAP con flota propia en Patraix.
+          <p style="font-size: 1.05rem; color: var(--ink-muted); max-width: 520px; line-height: 1.65;">
+            Tener el carnet no es solo aprobar un examen de Tráfico: es <strong>no volver a pedirle a nadie que te lleve</strong>, es esa escapada de verano a la playa y esa sensación única de ser dueño de tu tiempo. En Tricicle te enseñamos sin prisas, con paciencia infinita y con profesores que de verdad te cuidan.
           </p>
 
           <div style="display: flex; flex-wrap: wrap; gap: 0.85rem; padding-top: 0.5rem;">
-            <a href="#flota" class="btn-tricicle font-mono" style="padding: 0.9rem 1.6rem; font-size: 0.85rem; text-transform: uppercase;">
-              <span>Ver Nuestra Flota y Coches</span>
+            <a href="https://wa.me/34652256911?text=Hola%20Autoescuela%20Tricicle%2C%20quiero%20empezar%20mi%20carnet%20y%20conocer%20vuestras%20ofertas."
+               target="_blank" rel="noopener noreferrer"
+               class="btn-tricicle font-mono" style="padding: 0.95rem 1.6rem; font-size: 0.85rem; text-transform: uppercase;">
+              <span>Quiero Mi Carnet // Hablar por WhatsApp</span>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
             </a>
-            <a href="https://wa.me/34652256911?text=Hola%20Autoescuela%20Tricicle%2C%20quiero%20consultar%20precios%20y%20ofertas%20activas."
-               target="_blank" rel="noopener noreferrer"
-               class="btn-outline-dark font-mono" style="padding: 0.9rem 1.4rem; font-size: 0.85rem; text-transform: uppercase;">
-              <span>Consultar en WhatsApp</span>
+            <a href="#libertad" class="btn-outline-dark font-mono" style="padding: 0.95rem 1.35rem; font-size: 0.85rem; text-transform: uppercase;">
+              <span>Ver Cómo Aprendes ↗</span>
             </a>
           </div>
 
-          <!-- Trinca Rápida de Métricas (Sem Texto Pesado) -->
-          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; border-top: 1px solid rgba(14,16,18,0.15); padding-top: 1.25rem; margin-top: 0.5rem;" class="font-mono">
+          <!-- Trinca Emocional de Confiança -->
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; border-top: 1px solid rgba(12,14,17,0.15); padding-top: 1.25rem; margin-top: 0.5rem;" class="font-mono">
             <div>
-              <div style="font-size: 2rem; font-weight: 800; line-height: 1;" class="font-display">+40 AÑOS</div>
-              <div style="font-size: 0.65rem; color: var(--ink-muted); text-transform: uppercase; margin-top: 0.2rem;">En Patraix</div>
+              <div style="font-size: 1.85rem; font-weight: 800; line-height: 1;" class="font-display">0 GRITOS</div>
+              <div style="font-size: 0.65rem; color: var(--ink-muted); text-transform: uppercase; margin-top: 0.2rem;">Paciencia Total</div>
             </div>
             <div>
-              <div style="font-size: 2rem; font-weight: 800; line-height: 1;" class="font-display">09–21H</div>
-              <div style="font-size: 0.65rem; color: var(--ink-muted); text-transform: uppercase; margin-top: 0.2rem;">Aula Continua</div>
+              <div style="font-size: 1.85rem; font-weight: 800; line-height: 1; color: var(--apto);" class="font-display">94%</div>
+              <div style="font-size: 0.65rem; color: var(--ink-muted); text-transform: uppercase; margin-top: 0.2rem;">Aprobados a la 1ª</div>
             </div>
             <div>
-              <div style="font-size: 2rem; font-weight: 800; line-height: 1; color: var(--apto);" class="font-display">94%</div>
-              <div style="font-size: 0.65rem; color: var(--ink-muted); text-transform: uppercase; margin-top: 0.2rem;">Aprobados 1ª</div>
+              <div style="font-size: 1.85rem; font-weight: 800; line-height: 1;" class="font-display">+40 AÑOS</div>
+              <div style="font-size: 0.65rem; color: var(--ink-muted); text-transform: uppercase; margin-top: 0.2rem;">Familias Patraix</div>
             </div>
           </div>
         </div>
 
-        <!-- Coluna Direita: Composição Fotográfica de Alto Impacto com Badges Flutuantes -->
+        <!-- Coluna Direita: Foto com Emoção Genuína + Luz Dourada de València -->
         <div style="position: relative;" class="reveal-up">
-          <div class="img-zoom-container" style="height: 480px; box-shadow: 12px 12px 0px var(--asphalt); border: 2px solid var(--asphalt);">
-            <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=1200&auto=format&fit=crop&q=80"
-                 alt="Alumna feliz al volante en Autoescuela Tricicle Valencia" />
-            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(14,16,18,0.7) 0%, transparent 60%);"></div>
+          <div class="img-zoom-container" style="height: 500px; box-shadow: 12px 12px 0px var(--asphalt); border: 2px solid var(--asphalt);">
+            <img src="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=1200&auto=format&fit=crop&q=80"
+                 alt="Alumna feliz y segura al volante en Autoescuela Tricicle Valencia" />
+            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(12,14,17,0.75) 0%, rgba(12,14,17,0.1) 50%, transparent 100%);"></div>
           </div>
 
-          <!-- Badge Flutuante 1 (Topo Direito): Direção Elétrica & Ar Gelando -->
-          <div class="floating-pill" style="position: absolute; top: 1.5rem; right: -0.75rem; animation: floatAnim 4s ease-in-out infinite;">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F5CE00" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-            <span class="font-mono">Coches Fáciles de Aparcar</span>
+          <!-- Badge Flutuante 1 (Topo Direito): A Certeza da "L" -->
+          <div class="floating-pill" style="position: absolute; top: 1.5rem; right: -0.5rem; animation: floatAnim 4s ease-in-out infinite;">
+            <div class="l-badge" style="width: 20px; height: 24px; font-size: 1rem;">L</div>
+            <span class="font-mono" style="font-weight: 700;">Tu "L" te espera en la guantera</span>
           </div>
 
-          <!-- Badge Flutuante 2 (Base Esquerda): Paciência Real no Ensino -->
+          <!-- Badge Flutuante 2 (Base Esquerda): Empatia Pedagógica -->
           <div class="floating-pill" style="position: absolute; bottom: 1.75rem; left: 1.25rem;">
             <span style="width: 8px; height: 8px; border-radius: 50%; background-color: #10B981; display: inline-block;"></span>
-            <span class="font-mono">Profesores Pacientes · Cero Estrés</span>
+            <span class="font-mono">Profesores cercanos que transmiten calma</span>
           </div>
         </div>
 
@@ -372,34 +391,38 @@
   </style>
 
   <!-- ===================================================================== -->
-  <!-- FAIXA MARQUEE CINÉTICA (SINALIZAÇÃO VIAL EM MOVIMENTO)                -->
+  <!-- FAIXA MARQUEE: VIBRAÇÃO & SEGURANÇA EM MOVIMENTO                      -->
   <!-- ===================================================================== -->
   <div style="background-color: var(--tricicle); border-top: 2px solid var(--asphalt); border-bottom: 2px solid var(--asphalt); padding: 0.85rem 0; overflow: hidden; user-select: none;">
     <div class="marquee-mask">
       <div class="marquee-track" style="align-items: center; gap: 2rem; font-size: 1.15rem; font-weight: 800; text-transform: uppercase; color: var(--asphalt);" class="font-display">
         <div style="display: flex; align-items: center; gap: 2rem; padding-right: 2rem;">
-          <span>PERMISO B TURISMO · TEÓRICA DESDE LOS 17</span>
+          <span>LIBERTAD AL VOLANTE</span>
           <span style="width: 8px; height: 8px; background-color: var(--asphalt); transform: rotate(45deg);"></span>
-          <span>ESCALERA DE MOTO AM · A1 · A2 · CLASE A (9H)</span>
+          <span>SIN MIEDO A LAS ROTONDAS</span>
           <span style="width: 8px; height: 8px; background-color: var(--asphalt); transform: rotate(45deg);"></span>
-          <span>CAMIÓN C1 · C · C+E CON VEHÍCULOS PROPIOS</span>
+          <span>PACIENCIA DESDE EL PRIMER DÍA</span>
           <span style="width: 8px; height: 8px; background-color: var(--asphalt); transform: rotate(45deg);"></span>
-          <span>AUTOBÚS D1 · D Y HOMOLOGACIÓN CAP VIAJEROS</span>
+          <span>EL MISMO COCHE EL DÍA DEL EXAMEN</span>
           <span style="width: 8px; height: 8px; background-color: var(--asphalt); transform: rotate(45deg);"></span>
-          <span>CURSOS OFICIALES ADR MERCANCÍAS PELIGROSAS</span>
+          <span>AULA ABIERTA 09:00 A 21:00 EN PATRAIX</span>
+          <span style="width: 8px; height: 8px; background-color: var(--asphalt); transform: rotate(45deg);"></span>
+          <span>MOTO, CAMIÓN, CAP Y ADR CON VEHÍCULOS PROPIOS</span>
           <span style="width: 8px; height: 8px; background-color: var(--asphalt); transform: rotate(45deg);"></span>
         </div>
-        <!-- Duplicata para loop contínuo -->
+        <!-- Duplicata para loop infinito -->
         <div style="display: flex; align-items: center; gap: 2rem; padding-right: 2rem;" aria-hidden="true">
-          <span>PERMISO B TURISMO · TEÓRICA DESDE LOS 17</span>
+          <span>LIBERTAD AL VOLANTE</span>
           <span style="width: 8px; height: 8px; background-color: var(--asphalt); transform: rotate(45deg);"></span>
-          <span>ESCALERA DE MOTO AM · A1 · A2 · CLASE A (9H)</span>
+          <span>SIN MIEDO A LAS ROTONDAS</span>
           <span style="width: 8px; height: 8px; background-color: var(--asphalt); transform: rotate(45deg);"></span>
-          <span>CAMIÓN C1 · C · C+E CON VEHÍCULOS PROPIOS</span>
+          <span>PACIENCIA DESDE EL PRIMER DÍA</span>
           <span style="width: 8px; height: 8px; background-color: var(--asphalt); transform: rotate(45deg);"></span>
-          <span>AUTOBÚS D1 · D Y HOMOLOGACIÓN CAP VIAJEROS</span>
+          <span>EL MISMO COCHE EL DÍA DEL EXAMEN</span>
           <span style="width: 8px; height: 8px; background-color: var(--asphalt); transform: rotate(45deg);"></span>
-          <span>CURSOS OFICIALES ADR MERCANCÍAS PELIGROSAS</span>
+          <span>AULA ABIERTA 09:00 A 21:00 EN PATRAIX</span>
+          <span style="width: 8px; height: 8px; background-color: var(--asphalt); transform: rotate(45deg);"></span>
+          <span>MOTO, CAMIÓN, CAP Y ADR CON VEHÍCULOS PROPIOS</span>
           <span style="width: 8px; height: 8px; background-color: var(--asphalt); transform: rotate(45deg);"></span>
         </div>
       </div>
@@ -407,80 +430,241 @@
   </div>
 
   <!-- ===================================================================== -->
-  <!-- NOVA DOBRA: SHOWCASE VISUAL DA FROTA TRICICLE (MOTION & FOTOS RICAS)  -->
+  <!-- NOVA DOBRA: "LO QUE DE VERDAD SIGNIFICA TENER TU CARNET" (SENTIMENTO) -->
   <!-- ===================================================================== -->
-  <section id="flota" style="padding: 5rem 0; border-bottom: 1px solid rgba(14,16,18,0.15); background-color: var(--bg-paper);">
+  <section id="libertad" style="padding: 5.5rem 0; border-bottom: 1px solid rgba(12,14,17,0.15); background-color: #FFFFFF;">
+    <div class="container-custom">
+      <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1.5rem; margin-bottom: 3.5rem;" class="reveal-up">
+        <div>
+          <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--ink-muted);" class="font-mono">
+            // EL VALOR DE TU INDEPENDENCIA
+          </span>
+          <h2 style="font-size: clamp(2.3rem, 4.2vw, 3.8rem); font-weight: 800; text-transform: uppercase; line-height: 1; margin-top: 0.25rem;" class="font-display">
+            MÁS QUE UN EXAMEN: <span style="font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; text-transform: none;">tu vida cambia cuando tienes las llaves.</span>
+          </h2>
+        </div>
+        <p style="font-size: 1rem; color: var(--ink-muted); max-width: 460px;">
+          Conducir no es memorizar señales: es la tranquilidad de no deberle favores a nadie y poder decir "yo os llevo".
+        </p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.75rem;">
+        
+        <!-- Sentimento 1: Liberdade Real -->
+        <div class="spotlight-card reveal-up" style="background-color: var(--bg-paper); border: 2px solid var(--asphalt); border-radius: 1rem; padding: 2.25rem 2rem; box-shadow: 6px 6px 0px var(--asphalt); display: flex; flex-direction: column; justify-content: space-between; gap: 1.5rem;">
+          <div>
+            <div style="width: 48px; height: 48px; border-radius: 8px; background: var(--tricicle); border: 2px solid var(--asphalt); display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+            <h3 style="font-size: 1.75rem; font-weight: 800; text-transform: uppercase; line-height: 1.1;" class="font-display">
+              Cero favores, cero esperas a las 3:00 am
+            </h3>
+            <p style="font-size: 0.95rem; color: var(--ink-muted); margin-top: 0.85rem; line-height: 1.6;">
+              Se acabaron los mensajes pidiendo que te vayan a recoger o depender de si hay metro nocturno. Te subes a tu coche, pones tu calefacción o aire, y vuelves a casa seguro cuando tú decides.
+            </p>
+          </div>
+          <div style="font-size: 0.75rem; font-weight: 700; color: var(--asphalt); border-top: 1px solid rgba(12,14,17,0.1); padding-top: 1rem;" class="font-mono">
+            TU TIEMPO ES TUYO
+          </div>
+        </div>
+
+        <!-- Sentimento 2: Planos & Viagens -->
+        <div class="spotlight-card reveal-up" style="background-color: var(--bg-paper); border: 2px solid var(--asphalt); border-radius: 1rem; padding: 2.25rem 2rem; box-shadow: 6px 6px 0px var(--asphalt); display: flex; flex-direction: column; justify-content: space-between; gap: 1.5rem;">
+          <div>
+            <div style="width: 48px; height: 48px; border-radius: 8px; background: var(--tricicle); border: 2px solid var(--asphalt); display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <h3 style="font-size: 1.75rem; font-weight: 800; text-transform: uppercase; line-height: 1.1;" class="font-display">
+              Playa de El Saler, música alta y escapadas
+            </h3>
+            <p style="font-size: 0.95rem; color: var(--ink-muted); margin-top: 0.85rem; line-height: 1.6;">
+              Un viernes por la tarde improvisar con amigos, meter las toallas en el maletero y salir de València a ver el atardecer en la Albufera. Esos recuerdos no se viven en autobús.
+            </p>
+          </div>
+          <div style="font-size: 0.75rem; font-weight: 700; color: var(--asphalt); border-top: 1px solid rgba(12,14,17,0.1); padding-top: 1rem;" class="font-mono">
+            VIVIR SIN LÍMITES
+          </div>
+        </div>
+
+        <!-- Sentimento 3: O Orgulho da Conquista -->
+        <div class="spotlight-card reveal-up" style="background-color: var(--asphalt); color: #FFFFFF; border: 2px solid var(--tricicle); border-radius: 1rem; padding: 2.25rem 2rem; box-shadow: 6px 6px 0px var(--tricicle); display: flex; flex-direction: column; justify-content: space-between; gap: 1.5rem;">
+          <div>
+            <div style="width: 48px; height: 48px; border-radius: 8px; background: var(--tricicle); border: 2px solid #FFFFFF; display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem;">
+              <div class="l-badge" style="width: 24px; height: 28px; font-size: 1.2rem;">L</div>
+            </div>
+            <h3 style="font-size: 1.75rem; font-weight: 800; text-transform: uppercase; line-height: 1.1; color: #FFFFFF;" class="font-display">
+              Pegar la "L" verde y ver el orgullo en tu casa
+            </h3>
+            <p style="font-size: 0.95rem; color: rgba(255,255,255,0.8); margin-top: 0.85rem; line-height: 1.6;">
+              El momento en que el examinador firma el 'Apto', respiras hondo y sabes que lo conseguiste. Ver a tus padres tranquilos sabiendo que aprendiste a conducir bien de verdad.
+            </p>
+          </div>
+          <div style="font-size: 0.75rem; font-weight: 700; color: var(--tricicle); border-top: 1px solid rgba(255,255,255,0.15); padding-top: 1rem;" class="font-mono">
+            ORGULLO Y SEGURIDAD
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SEÇÃO DE EMPATIA CONTRA O MEDO: "RESPIRA, AQUÍ NO SE PASA MAL"        -->
+  <!-- ===================================================================== -->
+  <section id="metodo" style="padding: 5.5rem 0; border-bottom: 1px solid rgba(12,14,17,0.15); background-color: var(--bg-paper);">
+    <div class="container-custom">
+      <div style="display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center;" class="fear-grid">
+        
+        <!-- Foto Quente & Humana: Instrutor & Aluno em Harmonia -->
+        <div style="position: relative;" class="reveal-up">
+          <div class="img-zoom-container" style="height: 480px; box-shadow: 10px 10px 0px var(--asphalt); border: 2px solid var(--asphalt);">
+            <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=1200&auto=format&fit=crop&q=80"
+                 alt="Conducción tranquila y segura en Valencia" />
+            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(12,14,17,0.7) 0%, transparent 60%);"></div>
+          </div>
+          <div style="position: absolute; bottom: 1.5rem; left: 1.5rem; right: 1.5rem; background: rgba(246,244,238,0.96); padding: 1.25rem 1.5rem; border: 2px solid var(--asphalt); border-radius: 8px; box-shadow: 4px 4px 0px var(--asphalt);">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--apto);" class="font-mono">COMPROMISO TRICICLE</div>
+            <div style="font-size: 1.25rem; font-weight: 800; text-transform: uppercase; margin-top: 0.2rem;" class="font-display">"Si se te cala el coche, frenamos, sonreímos y volvemos a arrancar."</div>
+          </div>
+        </div>
+
+        <!-- Conteúdo: Derrubando as Maiores Ansiedades do Aluno -->
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;" class="reveal-up">
+          <div>
+            <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--ink-muted);" class="font-mono">
+              // ADIÓS A LA ANSIEDAD AL VOLANTE
+            </span>
+            <h2 style="font-size: clamp(2.3rem, 4vw, 3.6rem); font-weight: 800; text-transform: uppercase; line-height: 1; margin-top: 0.35rem;" class="font-display">
+              RESPIRA HONDO: <span style="font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; text-transform: none;">aquí nadie nace sabiendo conducir.</span>
+            </h2>
+          </div>
+
+          <p style="font-size: 1.05rem; color: var(--ink-muted); line-height: 1.65;">
+            Sabemos los nervios que da la primera práctica. Las manos que sudan, el miedo a que se te apague el motor en una rotonda con coches pitando detrás, o el temor a encontrarte con un profesor con malas pulgas. En Tricicle llevamos más de 40 años enseñando con vocación:
+          </p>
+
+          <div style="display: flex; flex-direction: column; gap: 1.15rem; margin-top: 0.5rem;">
+            
+            <div style="display: flex; gap: 1rem; align-items: flex-start;">
+              <div style="width: 28px; height: 28px; border-radius: 50%; background: var(--apto); color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.85rem; flex-shrink: 0; margin-top: 0.15rem;">✓</div>
+              <div>
+                <strong style="font-size: 1.05rem; text-transform: uppercase; display: block;" class="font-display">Paciencia Pedagógica Real</strong>
+                <span style="font-size: 0.9rem; color: var(--ink-muted);">Si una maniobra se te atraganta, la repetimos las veces que haga falta sin malas caras ni resoplidos.</span>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 1rem; align-items: flex-start;">
+              <div style="width: 28px; height: 28px; border-radius: 50%; background: var(--apto); color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.85rem; flex-shrink: 0; margin-top: 0.15rem;">✓</div>
+              <div>
+                <strong style="font-size: 1.05rem; text-transform: uppercase; display: block;" class="font-display">El Mismo Coche el Día del Examen</strong>
+                <span style="font-size: 0.9rem; color: var(--ink-muted);">Haces el examen de la DGT exactamente con el mismo embrague, retrovisores y profesor con los que has entrenado.</span>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 1rem; align-items: flex-start;">
+              <div style="width: 28px; height: 28px; border-radius: 50%; background: var(--apto); color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.85rem; flex-shrink: 0; margin-top: 0.15rem;">✓</div>
+              <div>
+                <strong style="font-size: 1.05rem; text-transform: uppercase; display: block;" class="font-display">Precio Claro desde el Minuto Uno</strong>
+                <span style="font-size: 0.9rem; color: var(--ink-muted);">Sin letra pequeña, sin renovaciones fantasma y sin cobrarte prácticas de más.</span>
+              </div>
+            </div>
+
+          </div>
+
+          <div style="padding-top: 0.75rem;">
+            <a href="https://wa.me/34652256911?text=Hola%20Autoescuela%20Tricicle%2C%20tengo%20un%20poco%20de%20miedo%20a%20conducir%20y%20me%20gustar%C3%ADa%20saber%20c%C3%B3mo%20son%20las%20primeras%20clases."
+               target="_blank" rel="noopener noreferrer"
+               class="btn-tricicle font-mono" style="padding: 0.85rem 1.4rem; font-size: 0.8rem; text-transform: uppercase;">
+              <span>Pregúntanos por WhatsApp sin Vergüenza</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <style>
+    @media (min-width: 992px) { .fear-grid { grid-template-columns: 0.95fr 1.05fr !important; } }
+  </style>
+
+  <!-- ===================================================================== -->
+  <!-- SHOWCASE DA FROTA: FOTOS RICAS, ABAS E INTERAÇÃO                     -->
+  <!-- ===================================================================== -->
+  <section id="flota" style="padding: 5.5rem 0; border-bottom: 1px solid rgba(12,14,17,0.15); background-color: #FFFFFF;">
     <div class="container-custom">
       <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1.5rem; margin-bottom: 2.5rem;" class="reveal-up">
         <div>
           <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--ink-muted);" class="font-mono">
-            // FOTOGRAFÍA & FLOTA REAL
+            // VEHÍCULOS CÓMODOS Y SEGUROS
           </span>
           <h2 style="font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 800; text-transform: uppercase; line-height: 1; margin-top: 0.25rem;" class="font-display">
-            APRENDE CON VEHÍCULOS CÓMODOS Y REVISADOS
+            NUESTRA FLOTA: APRENDES EN COCHES QUE TE LO PONEN FÁCIL
           </h2>
         </div>
         <p style="font-size: 0.95rem; color: var(--ink-muted); max-width: 440px;">
-          Coches ágiles con visibilidad perfecta para hacer la baliza sin complicaciones, motos de pista dosificables y camiones adaptados a examen DGT.
+          Dirección suave como una pluma, visibilidad amplia para aparcar sin perder referencias y aire acondicionado perfecto para el verano valenciano.
         </p>
       </div>
 
-      <!-- Abas Interativas de Troca da Frota (com Motion) -->
+      <!-- Abas Interativas -->
       <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.75rem;" class="font-mono" role="tablist">
-        <button type="button" data-fleet-tab="coche" class="fleet-btn" style="padding: 0.6rem 1.25rem; border-radius: 6px; font-weight: 700; font-size: 0.8rem; background-color: var(--asphalt); color: var(--tricicle); border: 1px solid var(--asphalt); cursor: pointer; transition: all 0.2s ease;">
+        <button type="button" data-fleet-tab="coche" class="fleet-btn" style="padding: 0.65rem 1.35rem; border-radius: 6px; font-weight: 700; font-size: 0.8rem; background-color: var(--asphalt); color: var(--tricicle); border: 2px solid var(--asphalt); cursor: pointer; transition: all 0.2s ease;">
           [ 01 ] TURISMO COCHE (B)
         </button>
-        <button type="button" data-fleet-tab="moto" class="fleet-btn" style="padding: 0.6rem 1.25rem; border-radius: 6px; font-weight: 600; font-size: 0.8rem; background-color: #FFFFFF; color: var(--asphalt); border: 1px solid rgba(14,16,18,0.2); cursor: pointer; transition: all 0.2s ease;">
-          [ 02 ] MOTOS A1 · A2 · CLASE A
+        <button type="button" data-fleet-tab="moto" class="fleet-btn" style="padding: 0.65rem 1.35rem; border-radius: 6px; font-weight: 600; font-size: 0.8rem; background-color: var(--bg-paper); color: var(--asphalt); border: 1px solid rgba(12,14,17,0.2); cursor: pointer; transition: all 0.2s ease;">
+          [ 02 ] MOTOS AM · A1 · A2 · CLASE A
         </button>
-        <button type="button" data-fleet-tab="pesado" class="fleet-btn" style="padding: 0.6rem 1.25rem; border-radius: 6px; font-weight: 600; font-size: 0.8rem; background-color: #FFFFFF; color: var(--asphalt); border: 1px solid rgba(14,16,18,0.2); cursor: pointer; transition: all 0.2s ease;">
+        <button type="button" data-fleet-tab="pesado" class="fleet-btn" style="padding: 0.65rem 1.35rem; border-radius: 6px; font-weight: 600; font-size: 0.8rem; background-color: var(--bg-paper); color: var(--asphalt); border: 1px solid rgba(12,14,17,0.2); cursor: pointer; transition: all 0.2s ease;">
           [ 03 ] CAMIÓN C & C+E
         </button>
-        <button type="button" data-fleet-tab="bus" class="fleet-btn" style="padding: 0.6rem 1.25rem; border-radius: 6px; font-weight: 600; font-size: 0.8rem; background-color: #FFFFFF; color: var(--asphalt); border: 1px solid rgba(14,16,18,0.2); cursor: pointer; transition: all 0.2s ease;">
+        <button type="button" data-fleet-tab="bus" class="fleet-btn" style="padding: 0.65rem 1.35rem; border-radius: 6px; font-weight: 600; font-size: 0.8rem; background-color: var(--bg-paper); color: var(--asphalt); border: 1px solid rgba(12,14,17,0.2); cursor: pointer; transition: all 0.2s ease;">
           [ 04 ] AUTOBÚS D & CAP
         </button>
       </div>
 
-      <!-- Card Vitrine Grande com Imagem Editorial + Ficha Técnica Rápida -->
-      <div id="fleet-card" class="reveal-up" style="border: 2px solid var(--asphalt); background: #FFFFFF; border-radius: 1rem; overflow: hidden; box-shadow: 8px 8px 0px var(--asphalt); display: grid; grid-template-columns: 1fr; gap: 0;" class="fleet-grid">
-        <!-- Lado Visual (Foto Panorâmica) -->
-        <div class="img-zoom-container" style="height: 380px; position: relative;">
+      <!-- Card Vitrine Grande com Imagem Editorial -->
+      <div id="fleet-card" class="reveal-up" style="border: 2px solid var(--asphalt); background: var(--bg-paper); border-radius: 1rem; overflow: hidden; box-shadow: 8px 8px 0px var(--asphalt); display: grid; grid-template-columns: 1fr; gap: 0;" class="fleet-grid">
+        <!-- Lado Visual -->
+        <div class="img-zoom-container" style="height: 400px; position: relative;">
           <img id="fleet-img" src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=1200&auto=format&fit=crop&q=80"
                alt="Vehículo de prácticas de Autoescuela Tricicle" />
           <div style="position: absolute; bottom: 1rem; left: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
             <span id="fleet-badge-1" class="floating-pill font-mono">Dirección Asistida Eléctrica</span>
-            <span id="fleet-badge-2" class="floating-pill font-mono">Ar Gelando para el Verano</span>
+            <span id="fleet-badge-2" class="floating-pill font-mono">Fácil de Aparcar y Maniobrar</span>
           </div>
         </div>
 
-        <!-- Lado Conteúdo (Ficha Resumida, Zero Enrolação) -->
+        <!-- Lado Conteúdo -->
         <div style="padding: 2.25rem 2rem; display: flex; flex-direction: column; justify-content: space-between; gap: 1.5rem;">
           <div>
             <span id="fleet-category" style="font-size: 0.75rem; text-transform: uppercase; color: var(--ink-muted);" class="font-mono">
               PERMISO B // TURISMO Y CIUDAD
             </span>
             <h3 id="fleet-title" style="font-size: 2.2rem; font-weight: 800; text-transform: uppercase; line-height: 1; margin-top: 0.25rem;" class="font-display">
-              Coches Modernos y Suaves de Conducir
+              Coches Modernos, Suaves y Fáciles
             </h3>
             <p id="fleet-desc" style="font-size: 0.95rem; color: var(--ink-muted); margin-top: 0.75rem; line-height: 1.6;">
-              Dimensiones ideales para circular por el tráfico de València y hacer maniobras de examen sin perder referencias visuales.
+              Dimensiones ideales para circular por el tráfico de València y hacer la prueba de estacionamiento en línea sin perder referencias visuales.
             </p>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid rgba(14,16,18,0.1); font-size: 0.8rem;" class="font-mono">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid rgba(12,14,17,0.1); font-size: 0.8rem;" class="font-mono">
               <div>
                 <span style="color: var(--ink-muted); display: block; font-size: 0.7rem;">TEÓRICA:</span>
-                <strong id="fleet-spec-1">Aula abierta + App 24h</strong>
+                <strong id="fleet-spec-1">Aula abierta 09:00 a 21:00 + App Móvil</strong>
               </div>
               <div>
                 <span style="color: var(--ink-muted); display: block; font-size: 0.7rem;">EDAD MÍNIMA:</span>
-                <strong id="fleet-spec-2">Desde 17 años</strong>
+                <strong id="fleet-spec-2">Desde los 17 años (Examen a los 18)</strong>
               </div>
             </div>
           </div>
 
           <a id="fleet-cta" href="https://wa.me/34652256911?text=Hola%20Autoescuela%20Tricicle%2C%20quiero%20informaci%C3%B3n%20para%20el%20Permiso%20B%20de%20Coche."
              target="_blank" rel="noopener noreferrer"
-             class="btn-tricicle font-mono" style="padding: 0.85rem 1.4rem; font-size: 0.8rem; text-transform: uppercase; align-self: flex-start;">
+             class="btn-tricicle font-mono" style="padding: 0.9rem 1.45rem; font-size: 0.85rem; text-transform: uppercase; align-self: flex-start;">
             <span id="fleet-cta-label">Consultar Matrícula Coche por WhatsApp</span>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
           </a>
@@ -494,70 +678,91 @@
   </style>
 
   <!-- ===================================================================== -->
-  <!-- PASSO A PASSO DA CNH EM 4 ETAPAS VISUAIS (SUBSTITUI TEXTOS LONGOS)   -->
+  <!-- HISTÓRIAS REAIS DE QUEM PASSOU POR LÁ (PROVA SOCIAL EMOCIONAL)        -->
   <!-- ===================================================================== -->
-  <section id="permisos" style="padding: 5rem 0; border-bottom: 1px solid rgba(14,16,18,0.15); background-color: #FFFFFF;">
+  <section id="testimonios" style="padding: 5.5rem 0; border-bottom: 1px solid rgba(12,14,17,0.15); background-color: var(--bg-paper);">
     <div class="container-custom">
       <div style="text-align: center; max-width: 650px; margin: 0 auto 3.5rem;" class="reveal-up">
-        <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--ink-muted);" class="font-mono">
-          // PROCESO CLARO DGT
-        </span>
-        <h2 style="font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 800; text-transform: uppercase; line-height: 1; margin-top: 0.25rem;" class="font-display">
-          TU RUTA HACIA EL APROBADO EN 4 PASOS
+        <div style="display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+          <div class="l-badge" style="width: 22px; height: 26px; font-size: 1.1rem;">L</div>
+          <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--apto);" class="font-mono">
+            HISTORIAS REALES DE PATRAIX
+          </span>
+        </div>
+        <h2 style="font-size: clamp(2.3rem, 4vw, 3.6rem); font-weight: 800; text-transform: uppercase; line-height: 1;" class="font-display">
+          LA MEJOR PRUEBA: <span style="font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; text-transform: none;">las caras de felicidad con su "L"</span>
         </h2>
         <p style="font-size: 0.95rem; color: var(--ink-muted); margin-top: 0.5rem;">
-          Sin misterios ni letra pequeña: así te acompañamos desde tu primera clase teórica hasta tu "L" en la mano.
+          Gente como tú que empezó nerviosa y hoy conduce con seguridad total por toda España.
         </p>
       </div>
 
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 1.75rem;">
         
-        <!-- Passo 1 -->
-        <div class="card-asphalt spotlight-card reveal-up" style="background-color: var(--bg-paper); border: 1px solid rgba(14,16,18,0.15); border-radius: 0.75rem; padding: 1.75rem 1.5rem; display: flex; flex-direction: column; justify-content: space-between; gap: 1.5rem;">
+        <!-- Depoimento 1: Superação do Medo -->
+        <div class="spotlight-card reveal-up" style="background: #FFFFFF; border: 2px solid var(--asphalt); border-radius: 1rem; padding: 2rem; box-shadow: 6px 6px 0px var(--asphalt); display: flex; flex-direction: column; justify-content: space-between; gap: 1.25rem;">
           <div>
-            <div style="font-size: 2.75rem; font-weight: 800; color: var(--asphalt); line-height: 0.9;" class="font-display">01</div>
-            <h3 style="font-size: 1.35rem; font-weight: 800; text-transform: uppercase; margin-top: 0.75rem;" class="font-display">Matrícula & Psicotécnico</h3>
-            <p style="font-size: 0.85rem; color: var(--ink-muted); margin-top: 0.4rem;">
-              Te ayudamos con el certificado médico y tramitamos tu expediente en la DGT para que no hagas cola en Tráfico.
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+              <div style="display: flex; gap: 0.2rem; color: var(--tricicle);">
+                ★★★★★
+              </div>
+              <span style="background: var(--apto-light); color: var(--apto); font-weight: 700; font-size: 0.7rem; padding: 0.2rem 0.55rem; border-radius: 4px;" class="font-mono">APROBADA A LA 1ª</span>
+            </div>
+            <p style="font-size: 0.95rem; color: var(--asphalt); line-height: 1.6; font-style: italic;">
+              "Iba con pánico porque soy súper nerviosa. En mi primera práctica pensé que me bajaría llorando, pero mi profesor me habló con una calma que me cambió el chip. Aprobé a la primera y todavía no me creo que ya voy a la universidad en mi coche."
             </p>
           </div>
-          <div style="font-size: 0.7rem; color: var(--asphalt); font-weight: 700;" class="font-mono">Punto de Partida</div>
+          <div style="display: flex; align-items: center; gap: 0.75rem; border-top: 1px solid rgba(12,14,17,0.1); padding-top: 1rem;">
+            <div style="width: 42px; height: 42px; border-radius: 50%; background: var(--tricicle); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem;" class="font-mono">SG</div>
+            <div>
+              <div style="font-weight: 800; font-size: 0.95rem;">Sara Gómez (19 años)</div>
+              <div style="font-size: 0.75rem; color: var(--ink-muted);" class="font-mono">Permiso B · Vecina de Patraix</div>
+            </div>
+          </div>
         </div>
 
-        <!-- Passo 2 -->
-        <div class="card-asphalt spotlight-card reveal-up" style="background-color: var(--bg-paper); border: 1px solid rgba(14,16,18,0.15); border-radius: 0.75rem; padding: 1.75rem 1.5rem; display: flex; flex-direction: column; justify-content: space-between; gap: 1.5rem;">
+        <!-- Depoimento 2: Fim da Frustração com Autoescola Low-Cost -->
+        <div class="spotlight-card reveal-up" style="background: #FFFFFF; border: 2px solid var(--asphalt); border-radius: 1rem; padding: 2rem; box-shadow: 6px 6px 0px var(--asphalt); display: flex; flex-direction: column; justify-content: space-between; gap: 1.25rem;">
           <div>
-            <div style="font-size: 2.75rem; font-weight: 800; color: var(--asphalt); line-height: 0.9;" class="font-display">02</div>
-            <h3 style="font-size: 1.35rem; font-weight: 800; text-transform: uppercase; margin-top: 0.75rem;" class="font-display">Teórica Flexible</h3>
-            <p style="font-size: 0.85rem; color: var(--ink-muted); margin-top: 0.4rem;">
-              Clases en aula de 09:00 a 21:00 con profesor presencial y acceso a test de examen oficiales en tu móvil 24h.
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+              <div style="display: flex; gap: 0.2rem; color: var(--tricicle);">
+                ★★★★★
+              </div>
+              <span style="background: var(--apto-light); color: var(--apto); font-weight: 700; font-size: 0.7rem; padding: 0.2rem 0.55rem; border-radius: 4px;" class="font-mono">APROBADO A LA 1ª</span>
+            </div>
+            <p style="font-size: 0.95rem; color: var(--asphalt); line-height: 1.6; font-style: italic;">
+              "Venía rebotado de una autoescola online 'barata' donde el profesor solo miraba el móvil y me gritaba por cada error. En Tricicle noté la diferencia desde el minuto uno. Trato humano de verdad, coches impecables y cero rodeos para ir a examen."
             </p>
           </div>
-          <div style="font-size: 0.7rem; color: var(--asphalt); font-weight: 700;" class="font-mono">Desde los 17 Años</div>
+          <div style="display: flex; align-items: center; gap: 0.75rem; border-top: 1px solid rgba(12,14,17,0.1); padding-top: 1rem;">
+            <div style="width: 42px; height: 42px; border-radius: 50%; background: var(--asphalt); color: var(--tricicle); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem;" class="font-mono">AV</div>
+            <div>
+              <div style="font-weight: 800; font-size: 0.95rem;">Alejandro Valero (22 años)</div>
+              <div style="font-size: 0.75rem; color: var(--ink-muted);" class="font-mono">Permiso B · Valencia</div>
+            </div>
+          </div>
         </div>
 
-        <!-- Passo 3 -->
-        <div class="card-asphalt spotlight-card reveal-up" style="background-color: var(--bg-paper); border: 1px solid rgba(14,16,18,0.15); border-radius: 0.75rem; padding: 1.75rem 1.5rem; display: flex; flex-direction: column; justify-content: space-between; gap: 1.5rem;">
+        <!-- Depoimento 3: Perder o medo depois de anos -->
+        <div class="spotlight-card reveal-up" style="background: #FFFFFF; border: 2px solid var(--asphalt); border-radius: 1rem; padding: 2rem; box-shadow: 6px 6px 0px var(--asphalt); display: flex; flex-direction: column; justify-content: space-between; gap: 1.25rem;">
           <div>
-            <div style="font-size: 2.75rem; font-weight: 800; color: var(--asphalt); line-height: 0.9;" class="font-display">03</div>
-            <h3 style="font-size: 1.35rem; font-weight: 800; text-transform: uppercase; margin-top: 0.75rem;" class="font-display">Prácticas sin Miedo</h3>
-            <p style="font-size: 0.85rem; color: var(--ink-muted); margin-top: 0.4rem;">
-              Recorre las zonas reales de examen en València con profesores pacientes que te enseñan trucos de baliza y circulación.
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+              <div style="display: flex; gap: 0.2rem; color: var(--tricicle);">
+                ★★★★★
+              </div>
+              <span style="background: rgba(245,206,0,0.2); color: var(--asphalt); font-weight: 700; font-size: 0.7rem; padding: 0.2rem 0.55rem; border-radius: 4px;" class="font-mono">CLASES RECICLAJE</span>
+            </div>
+            <p style="font-size: 0.95rem; color: var(--asphalt); line-height: 1.6; font-style: italic;">
+              "Llevaba 10 años con el carnet en un cajón por miedo al tráfico pesado de las grandes avenidas. En Tricicle hice 5 clases de reciclaje con tanto cariño y respeto que me devolvieron la vida. Hoy llevo a mis peques al colegio en coche sin ansiedad."
             </p>
           </div>
-          <div style="font-size: 0.7rem; color: var(--apto); font-weight: 700;" class="font-mono">Seguridad al 100%</div>
-        </div>
-
-        <!-- Passo 4 -->
-        <div class="card-asphalt spotlight-card reveal-up" style="background-color: var(--asphalt); color: #FFFFFF; border-radius: 0.75rem; padding: 1.75rem 1.5rem; display: flex; flex-direction: column; justify-content: space-between; gap: 1.5rem; border: 2px solid var(--tricicle);">
-          <div>
-            <div style="font-size: 2.75rem; font-weight: 800; color: var(--tricicle); line-height: 0.9;" class="font-display">04</div>
-            <h3 style="font-size: 1.35rem; font-weight: 800; text-transform: uppercase; margin-top: 0.75rem; color: #FFFFFF;" class="font-display">Aprobado y Tu "L"</h3>
-            <p style="font-size: 0.85rem; color: rgba(255,255,255,0.75); margin-top: 0.4rem;">
-              Superas el examen práctico con el mismo coche que conoces y te llevas tu placa oficial para estrenar carretera.
-            </p>
+          <div style="display: flex; align-items: center; gap: 0.75rem; border-top: 1px solid rgba(12,14,17,0.1); padding-top: 1rem;">
+            <div style="width: 42px; height: 42px; border-radius: 50%; background: var(--tricicle); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem;" class="font-mono">MS</div>
+            <div>
+              <div style="font-weight: 800; font-size: 0.95rem;">Marta Soler (38 años)</div>
+              <div style="font-size: 0.75rem; color: var(--ink-muted);" class="font-mono">Reciclaje · Patraix</div>
+            </div>
           </div>
-          <div style="font-size: 0.7rem; color: var(--tricicle); font-weight: 700;" class="font-mono">Tu Carnet en la Mano</div>
         </div>
 
       </div>
@@ -565,7 +770,78 @@
   </section>
 
   <!-- ===================================================================== -->
-  <!-- SEÇÃO PROFISSIONAL: CAMIÓN, CAP & ADR (SPOTLIGHT CARDS + FOTOS)      -->
+  <!-- PASSO A PASSO DA CNH EM 4 ETAPAS VISUAIS                              -->
+  <!-- ===================================================================== -->
+  <section id="proceso" style="padding: 5.5rem 0; border-bottom: 1px solid rgba(12,14,17,0.15); background-color: #FFFFFF;">
+    <div class="container-custom">
+      <div style="text-align: center; max-width: 650px; margin: 0 auto 3.5rem;" class="reveal-up">
+        <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--ink-muted);" class="font-mono">
+          // TU CAMINO SIN COMPLICACIONES
+        </span>
+        <h2 style="font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 800; text-transform: uppercase; line-height: 1; margin-top: 0.25rem;" class="font-display">
+          DEL PRIMER DÍA HASTA TU "L" EN 4 PASOS
+        </h2>
+        <p style="font-size: 0.95rem; color: var(--ink-muted); margin-top: 0.5rem;">
+          Te acompañamos personalmente en cada trámite para que tú solo tengas que concentrarte en disfrutar de la carretera.
+        </p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+        
+        <!-- Passo 1 -->
+        <div class="spotlight-card reveal-up" style="background-color: var(--bg-paper); border: 1px solid rgba(12,14,17,0.15); border-radius: 0.75rem; padding: 1.75rem 1.5rem; display: flex; flex-direction: column; justify-content: space-between; gap: 1.5rem;">
+          <div>
+            <div style="font-size: 2.75rem; font-weight: 800; color: var(--asphalt); line-height: 0.9;" class="font-display">01</div>
+            <h3 style="font-size: 1.35rem; font-weight: 800; text-transform: uppercase; margin-top: 0.75rem;" class="font-display">Matrícula & Psicotécnico</h3>
+            <p style="font-size: 0.85rem; color: var(--ink-muted); margin-top: 0.4rem;">
+              Te ayudamos con el certificado médico y tramitamos tu expediente en la DGT para que no pierdas mañanas enteras en Tráfico.
+            </p>
+          </div>
+          <div style="font-size: 0.7rem; color: var(--asphalt); font-weight: 700;" class="font-mono">Punto de Partida</div>
+        </div>
+
+        <!-- Passo 2 -->
+        <div class="spotlight-card reveal-up" style="background-color: var(--bg-paper); border: 1px solid rgba(12,14,17,0.15); border-radius: 0.75rem; padding: 1.75rem 1.5rem; display: flex; flex-direction: column; justify-content: space-between; gap: 1.5rem;">
+          <div>
+            <div style="font-size: 2.75rem; font-weight: 800; color: var(--asphalt); line-height: 0.9;" class="font-display">02</div>
+            <h3 style="font-size: 1.35rem; font-weight: 800; text-transform: uppercase; margin-top: 0.75rem;" class="font-display">Teórica a Tu Ritmo</h3>
+            <p style="font-size: 0.85rem; color: var(--ink-muted); margin-top: 0.4rem;">
+              Aula abierta de 09:00 a 21:00 con profesor presencial en Patraix para resolver tus dudas + tests oficiales en tu móvil 24h.
+            </p>
+          </div>
+          <div style="font-size: 0.7rem; color: var(--asphalt); font-weight: 700;" class="font-mono">Desde los 17 Años</div>
+        </div>
+
+        <!-- Passo 3 -->
+        <div class="spotlight-card reveal-up" style="background-color: var(--bg-paper); border: 1px solid rgba(12,14,17,0.15); border-radius: 0.75rem; padding: 1.75rem 1.5rem; display: flex; flex-direction: column; justify-content: space-between; gap: 1.5rem;">
+          <div>
+            <div style="font-size: 2.75rem; font-weight: 800; color: var(--asphalt); line-height: 0.9;" class="font-display">03</div>
+            <h3 style="font-size: 1.35rem; font-weight: 800; text-transform: uppercase; margin-top: 0.75rem;" class="font-display">Prácticas sin Estrés</h3>
+            <p style="font-size: 0.85rem; color: var(--ink-muted); margin-top: 0.4rem;">
+              Circula por las zonas reales de examen en Valencia con profesores que te transmiten tranquilidad y te enseñan referencias infalibles.
+            </p>
+          </div>
+          <div style="font-size: 0.7rem; color: var(--apto); font-weight: 700;" class="font-mono">Confianza al 100%</div>
+        </div>
+
+        <!-- Passo 4 -->
+        <div class="spotlight-card reveal-up" style="background-color: var(--asphalt); color: #FFFFFF; border-radius: 0.75rem; padding: 1.75rem 1.5rem; display: flex; flex-direction: column; justify-content: space-between; gap: 1.5rem; border: 2px solid var(--tricicle);">
+          <div>
+            <div style="font-size: 2.75rem; font-weight: 800; color: var(--tricicle); line-height: 0.9;" class="font-display">04</div>
+            <h3 style="font-size: 1.35rem; font-weight: 800; text-transform: uppercase; margin-top: 0.75rem; color: #FFFFFF;" class="font-display">Aprobado y Tu "L"</h3>
+            <p style="font-size: 0.85rem; color: rgba(255,255,255,0.75); margin-top: 0.4rem;">
+              Ese abrazo de felicitación con tu profesor cuando dicen "Apto" y te llevas tu placa oficial para estrenar carretera.
+            </p>
+          </div>
+          <div style="font-size: 0.7rem; color: var(--tricicle); font-weight: 700;" class="font-mono">Tu Libertad en la Mano</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- SEÇÃO PROFISSIONAL: CAMIÓN, CAP & ADR                                 -->
   <!-- ===================================================================== -->
   <section id="profesional" style="padding: 5.5rem 0; background-color: var(--asphalt); color: var(--bg-paper); border-bottom: 1px solid rgba(255,255,255,0.1); position: relative;" class="bg-grid-dark">
     <div class="container-custom" style="position: relative; z-index: 2;">
@@ -573,14 +849,14 @@
       <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1.5rem; margin-bottom: 3rem;" class="reveal-up">
         <div>
           <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--tricicle);" class="font-mono">
-            // DIVISIÓN TRANSPORTE PROFESIONAL
+            // TRANSPORTE PROFESIONAL & LOGÍSTICA
           </span>
           <h2 style="font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 800; text-transform: uppercase; line-height: 1; margin-top: 0.25rem; color: #FFFFFF;" class="font-display">
             ESPECIALISTAS EN CAMIÓN, <span style="color: var(--tricicle);">CAP Y ADR</span>
           </h2>
         </div>
         <p style="font-size: 0.95rem; color: rgba(255,255,255,0.75); max-width: 440px;">
-          Centro homologado para la obtención y renovación de CAP Mercancías/Viajeros, tarjeta de tacógrafo y autorizaciones europeas ADR.
+          Un sector con empleo asegurado en Valencia. Formación homologada con camiones propios y cursos continuos de CAP y ADR.
         </p>
       </div>
 
@@ -595,13 +871,13 @@
             </div>
             <h3 style="font-size: 1.85rem; font-weight: 800; text-transform: uppercase; color: #FFFFFF;" class="font-display">Cursos CAP Inicial y Continuo</h3>
             <p style="font-size: 0.85rem; color: rgba(255,255,255,0.7); margin-top: 0.5rem; line-height: 1.5;">
-              Modalidades de 280h (ordinario), 140h (acelerado para trabajar antes) y 35h (renovación cada 5 años sin examen).
+              Modalidades de 280h, 140h (acelerado para trabajar antes) y renovación periódica de 35h sin examen en Valencia.
             </p>
           </div>
           <a href="https://wa.me/34652256911?text=Hola%20Autoescuela%20Tricicle%2C%20quiero%20consultar%20fechas%20del%20curso%20CAP%20(Inicial%20%2F%20Renovaci%C3%B3n)."
              target="_blank" rel="noopener noreferrer"
-             class="btn-tricicle font-mono" style="padding: 0.75rem 1.25rem; font-size: 0.75rem; text-transform: uppercase; width: 100%;">
-            <span>Ver Próximas Convocatorias CAP</span>
+             class="btn-tricicle font-mono" style="padding: 0.8rem 1.25rem; font-size: 0.75rem; text-transform: uppercase; width: 100%;">
+            <span>Ver Convocatorias CAP por WhatsApp</span>
           </a>
         </div>
 
@@ -610,7 +886,7 @@
           <div style="position: relative; z-index: 12;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
               <span style="font-size: 0.7rem; color: var(--tricicle); background: rgba(245,206,0,0.15); padding: 0.2rem 0.6rem; border-radius: 4px;" class="font-mono">HOMOLOGACIÓN EUROPEA</span>
-              <span style="font-size: 0.7rem; color: rgba(255,255,255,0.5);" class="font-mono">ADR BÁSICO + CISTERNAS</span>
+              <span style="font-size: 0.7rem; color: rgba(255,255,255,0.5);" class="font-mono">BÁSICO + CISTERNAS</span>
             </div>
             <h3 style="font-size: 1.85rem; font-weight: 800; text-transform: uppercase; color: #FFFFFF;" class="font-display">Mercancías Peligrosas ADR</h3>
             <p style="font-size: 0.85rem; color: rgba(255,255,255,0.7); margin-top: 0.5rem; line-height: 1.5;">
@@ -619,7 +895,7 @@
           </div>
           <a href="https://wa.me/34652256911?text=Hola%20Autoescuela%20Tricicle%2C%20quiero%20informaci%C3%B3n%20sobre%20cursos%20ADR%20en%20Valencia."
              target="_blank" rel="noopener noreferrer"
-             class="btn-tricicle font-mono" style="padding: 0.75rem 1.25rem; font-size: 0.75rem; text-transform: uppercase; width: 100%;">
+             class="btn-tricicle font-mono" style="padding: 0.8rem 1.25rem; font-size: 0.75rem; text-transform: uppercase; width: 100%;">
             <span>Consultar Calendario ADR</span>
           </a>
         </div>
@@ -633,12 +909,12 @@
             </div>
             <h3 style="font-size: 1.85rem; font-weight: 800; text-transform: uppercase; color: #FFFFFF;" class="font-display">Permisos de Camión y Bus</h3>
             <p style="font-size: 0.85rem; color: rgba(255,255,255,0.7); margin-top: 0.5rem; line-height: 1.5;">
-              Prácticas de maniobras y destreza en pista con vehículos pesados propios adaptados a examen DGT València.
+              Prácticas de maniobras en pista con vehículos pesados propios adaptados al examen DGT en Valencia.
             </p>
           </div>
           <a href="https://wa.me/34652256911?text=Hola%20Autoescuela%20Tricicle%2C%20quiero%20precio%20del%20pack%20Camion%20%2B%20CAP."
              target="_blank" rel="noopener noreferrer"
-             class="btn-tricicle font-mono" style="padding: 0.75rem 1.25rem; font-size: 0.75rem; text-transform: uppercase; width: 100%;">
+             class="btn-tricicle font-mono" style="padding: 0.8rem 1.25rem; font-size: 0.75rem; text-transform: uppercase; width: 100%;">
             <span>Ver Pack Camión + CAP</span>
           </a>
         </div>
@@ -648,38 +924,38 @@
   </section>
 
   <!-- ===================================================================== -->
-  <!-- PLANIFICADOR INTERATIVO DGT: RÁPIDO, LIMPO E COM CONVERSÃO DIRETA    -->
+  <!-- PLANIFICADOR INTERATIVO DGT                                           -->
   <!-- ===================================================================== -->
-  <section id="planificador" style="padding: 5.5rem 0; border-bottom: 1px solid rgba(14,16,18,0.15); background-color: var(--bg-paper);">
+  <section id="planificador" style="padding: 5.5rem 0; border-bottom: 1px solid rgba(12,14,17,0.15); background-color: var(--bg-paper);">
     <div class="container-custom">
       <div style="max-width: 650px; margin-bottom: 2.5rem;" class="reveal-up">
         <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--ink-muted);" class="font-mono">
           // CALCULADORA DE REQUISITOS DGT
         </span>
         <h2 style="font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 800; text-transform: uppercase; line-height: 1; margin-top: 0.25rem;" class="font-display">
-          COMPRUEBA TUS EXENCIONES Y DOCUMENTOS EN 15 SEGUNDOS
+          COMPRUEBA TUS REQUISITOS EN 15 SEGUNDOS
         </h2>
       </div>
 
       <div style="display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: stretch;" class="planner-grid reveal-up">
 
         <!-- Passos Interativos -->
-        <div style="background: #FFFFFF; border: 1px solid rgba(14,16,18,0.2); border-radius: 0.85rem; padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem;">
+        <div style="background: #FFFFFF; border: 2px solid var(--asphalt); border-radius: 0.85rem; padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem; box-shadow: 4px 4px 0px var(--asphalt);">
           <div>
             <label style="display: block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem;" class="font-mono">
-              01 // ¿Qué carnet te interesa?
+              01 // ¿Qué permiso te interesa?
             </label>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;" id="step1-buttons">
               <button type="button" data-plan="B" class="plan-btn" style="padding: 0.75rem; border-radius: 6px; font-weight: 700; font-size: 0.8rem; background: var(--asphalt); color: var(--tricicle); border: 2px solid var(--asphalt); cursor: pointer; text-align: left;" class="font-mono">
                 Permiso B (Coche)
               </button>
-              <button type="button" data-plan="A2" class="plan-btn" style="padding: 0.75rem; border-radius: 6px; font-weight: 600; font-size: 0.8rem; background: var(--bg-paper); color: var(--asphalt); border: 1px solid rgba(14,16,18,0.2); cursor: pointer; text-align: left;" class="font-mono">
+              <button type="button" data-plan="A2" class="plan-btn" style="padding: 0.75rem; border-radius: 6px; font-weight: 600; font-size: 0.8rem; background: var(--bg-paper); color: var(--asphalt); border: 1px solid rgba(12,14,17,0.2); cursor: pointer; text-align: left;" class="font-mono">
                 Motos AM / A1 / A2
               </button>
-              <button type="button" data-plan="A" class="plan-btn" style="padding: 0.75rem; border-radius: 6px; font-weight: 600; font-size: 0.8rem; background: var(--bg-paper); color: var(--asphalt); border: 1px solid rgba(14,16,18,0.2); cursor: pointer; text-align: left;" class="font-mono">
+              <button type="button" data-plan="A" class="plan-btn" style="padding: 0.75rem; border-radius: 6px; font-weight: 600; font-size: 0.8rem; background: var(--bg-paper); color: var(--asphalt); border: 1px solid rgba(12,14,17,0.2); cursor: pointer; text-align: left;" class="font-mono">
                 Curso Permiso A (9h)
               </button>
-              <button type="button" data-plan="PRO" class="plan-btn" style="padding: 0.75rem; border-radius: 6px; font-weight: 600; font-size: 0.8rem; background: var(--bg-paper); color: var(--asphalt); border: 1px solid rgba(14,16,18,0.2); cursor: pointer; text-align: left;" class="font-mono">
+              <button type="button" data-plan="PRO" class="plan-btn" style="padding: 0.75rem; border-radius: 6px; font-weight: 600; font-size: 0.8rem; background: var(--bg-paper); color: var(--asphalt); border: 1px solid rgba(12,14,17,0.2); cursor: pointer; text-align: left;" class="font-mono">
                 Camión, CAP o ADR
               </button>
             </div>
@@ -693,10 +969,10 @@
               <button type="button" data-status="cero" class="status-btn" style="padding: 0.65rem 0.5rem; border-radius: 6px; font-weight: 700; font-size: 0.75rem; background: var(--asphalt); color: var(--tricicle); border: 2px solid var(--asphalt); cursor: pointer;" class="font-mono">
                 Desde Cero
               </button>
-              <button type="button" data-status="tengoB" class="status-btn" style="padding: 0.65rem 0.5rem; border-radius: 6px; font-weight: 600; font-size: 0.75rem; background: var(--bg-paper); color: var(--asphalt); border: 1px solid rgba(14,16,18,0.2); cursor: pointer;" class="font-mono">
+              <button type="button" data-status="tengoB" class="status-btn" style="padding: 0.65rem 0.5rem; border-radius: 6px; font-weight: 600; font-size: 0.75rem; background: var(--bg-paper); color: var(--asphalt); border: 1px solid rgba(12,14,17,0.2); cursor: pointer;" class="font-mono">
                 Ya Tengo el B
               </button>
-              <button type="button" data-status="pro" class="status-btn" style="padding: 0.65rem 0.5rem; border-radius: 6px; font-weight: 600; font-size: 0.75rem; background: var(--bg-paper); color: var(--asphalt); border: 1px solid rgba(14,16,18,0.2); cursor: pointer;" class="font-mono">
+              <button type="button" data-status="pro" class="status-btn" style="padding: 0.65rem 0.5rem; border-radius: 6px; font-weight: 600; font-size: 0.75rem; background: var(--bg-paper); color: var(--asphalt); border: 1px solid rgba(12,14,17,0.2); cursor: pointer;" class="font-mono">
                 Tengo A2 (+2 años)
               </button>
             </div>
@@ -714,19 +990,19 @@
             <h3 id="plan-res-title" style="font-size: 2rem; font-weight: 800; text-transform: uppercase; color: #FFFFFF;" class="font-display">
               Permiso B de Coche
             </h3>
-            <p id="plan-res-desc" style="font-size: 0.85rem; color: rgba(255,255,255,0.8); margin-top: 0.5rem; line-height: 1.5;">
+            <p id="plan-res-desc" style="font-size: 0.85rem; color: rgba(255,255,255,0.85); margin-top: 0.5rem; line-height: 1.5;">
               Comienzas clases teóricas y test a los 17 años. Haces examen común de 30 preguntas y examen práctico al cumplir los 18.
             </p>
 
-            <div id="plan-res-note" style="margin-top: 1rem; padding: 0.75rem; background: rgba(245,206,0,0.1); border-left: 3px solid var(--tricicle); font-size: 0.75rem; color: var(--tricicle);" class="font-mono">
-              VENTAJA: Aula presencial continua de 09:00 a 21:00 en Patraix + plataforma online 24h.
+            <div id="plan-res-note" style="margin-top: 1rem; padding: 0.75rem; background: rgba(245,206,0,0.12); border-left: 3px solid var(--tricicle); font-size: 0.75rem; color: var(--tricicle);" class="font-mono">
+              VENTAJA TRICICLE: Aula presencial continua de 09:00 a 21:00 en Patraix + plataforma oficial 24h.
             </div>
           </div>
 
           <a id="plan-res-cta" href="https://wa.me/34652256911?text=Hola%20Autoescuela%20Tricicle%2C%20he%20usado%20el%20planificador%20para%20el%20Permiso%20B.%20%C2%BFQu%C3%A9%20precio%20tiene%20la%20matr%C3%ADcula%3F"
              target="_blank" rel="noopener noreferrer"
-             class="btn-tricicle font-mono" style="padding: 0.9rem 1.4rem; font-size: 0.85rem; text-transform: uppercase; width: 100%;">
-            <span>Enviar Hoja de Ruta al WhatsApp</span>
+             class="btn-tricicle font-mono" style="padding: 0.95rem 1.4rem; font-size: 0.85rem; text-transform: uppercase; width: 100%;">
+            <span>Enviar Mi Hoja de Ruta al WhatsApp</span>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
           </a>
         </div>
@@ -740,50 +1016,128 @@
   </style>
 
   <!-- ===================================================================== -->
-  <!-- LOCALIZAÇÃO EM PATRAIX: CARTOGRÁFICO, LIMPO E COM FOTOS              -->
+  <!-- REFORMULAÇÃO DOS DADOS DE CONTATO E LOCALIZAÇÃO (CALOR & ACOLHIMENTO) -->
+  <!-- Substitui a lista fria de formulário por um Hub Humano de Vizinhança  -->
   <!-- ===================================================================== -->
-  <section id="ubicacion" style="padding: 5rem 0; background-color: #FFFFFF; border-bottom: 1px solid rgba(14,16,18,0.15);">
+  <section id="contacto-humano" style="padding: 5.5rem 0; background-color: #FFFFFF; border-bottom: 1px solid rgba(12,14,17,0.15);">
     <div class="container-custom">
-      <div style="border: 2px solid var(--asphalt); border-radius: 1rem; overflow: hidden; box-shadow: 8px 8px 0px var(--asphalt); display: grid; grid-template-columns: 1fr;" class="loc-grid">
-        
-        <div style="padding: 2.5rem; display: flex; flex-direction: column; justify-content: space-between; gap: 1.5rem;">
-          <div>
-            <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--ink-muted);" class="font-mono">
-              // PATRAIX · 46014 VALÈNCIA
-            </span>
-            <h2 style="font-size: 2.5rem; font-weight: 800; text-transform: uppercase; line-height: 1; margin-top: 0.25rem;" class="font-display">
-              VEN A CONOCERNOS A LA CALLE FRAY JUNÍPERO SERRA
-            </h2>
-            <p style="font-size: 0.95rem; color: var(--ink-muted); margin-top: 0.75rem; line-height: 1.6;">
-              Entre Archiduque Carlos y Tres Forques. Pásate por secretaría para ver el aula o escríbenos directamente para resolver cualquier duda.
-            </p>
+      
+      <!-- Cabeçalho Acolhedor -->
+      <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1.5rem; margin-bottom: 3rem;" class="reveal-up">
+        <div>
+          <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--ink-muted);" class="font-mono">
+            // PATRAIX · TU AUTOESCUELA DE BARRIO
+          </span>
+          <h2 style="font-size: clamp(2.3rem, 4.2vw, 3.8rem); font-weight: 800; text-transform: uppercase; line-height: 1; margin-top: 0.25rem;" class="font-display">
+            VEN A CONOCERNOS: <span style="font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; text-transform: none;">te esperamos con un café y sin compromisos.</span>
+          </h2>
+        </div>
+        <p style="font-size: 0.95rem; color: var(--ink-muted); max-width: 440px;">
+          Pásate por nuestra secretaría en Patraix para ver el aula y conocer a tus futuros profesores, o escríbenos directamente por WhatsApp.
+        </p>
+      </div>
 
-            <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(14,16,18,0.1); font-size: 0.85rem;" class="font-mono">
-              <div><strong>Dirección:</strong> C/ Fray Junípero Serra, 71 - 73 (46014 València)</div>
-              <div style="margin-top: 0.35rem;"><strong>Teléfono:</strong> <a href="tel:+34963286590" style="color: var(--asphalt); text-decoration: underline;">+34 963 28 65 90</a></div>
-              <div style="margin-top: 0.35rem;"><strong>WhatsApp Oficial:</strong> <a href="https://wa.me/34652256911" target="_blank" style="color: #10B981; font-weight: 700; text-decoration: underline;">+34 652 25 69 11</a></div>
-              <div style="margin-top: 0.35rem;"><strong>Instagram:</strong> <a href="https://www.instagram.com/autoescuela_tricicle/" target="_blank" style="color: #FF6492; text-decoration: underline;">@autoescuela_tricicle</a></div>
+      <!-- Grid Principal: 3 Cards Humanizados de Conexão + Foto Inspiradora da Conquista -->
+      <div style="display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: stretch;" class="loc-grid reveal-up">
+        
+        <!-- Lado Esquerdo: Cards Visuais Humanizados (Substituem os dados crus em lista) -->
+        <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+          
+          <!-- Card 1: Aula & Sede Presencial -->
+          <div class="spotlight-card" style="background: var(--bg-paper); border: 2px solid var(--asphalt); border-radius: 0.85rem; padding: 1.75rem; box-shadow: 5px 5px 0px var(--asphalt); display: flex; flex-direction: column; gap: 1rem;">
+            <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;">
+              <div style="display: flex; gap: 0.85rem; align-items: flex-start;">
+                <div style="width: 40px; height: 40px; border-radius: 8px; background: var(--tricicle); border: 1px solid var(--asphalt); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
+                <div>
+                  <span style="font-size: 0.7rem; color: var(--ink-muted); font-weight: 700; text-transform: uppercase;" class="font-mono">AULA & SECRETARÍA EN PATRAIX</span>
+                  <h3 style="font-size: 1.35rem; font-weight: 800; text-transform: uppercase; margin-top: 0.15rem;" class="font-display">Calle Fray Junípero Serra, 71 - 73</h3>
+                  <p style="font-size: 0.85rem; color: var(--ink-muted); margin-top: 0.35rem;">
+                    46014 València · Entre Archiduque Carlos y Tres Forques. Abierto de Lunes a Viernes de <strong>09:00 a 21:00</strong> sin interrupción.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; border-top: 1px solid rgba(12,14,17,0.1); padding-top: 1rem;">
+              <a href="https://www.google.com/maps/search/?api=1&query=Autoescuela+Tricicle+Calle+Fray+Junipero+Serra+71+Valencia"
+                 target="_blank" rel="noopener noreferrer"
+                 class="btn-outline-dark font-mono" style="padding: 0.65rem 1.15rem; font-size: 0.75rem; text-transform: uppercase;">
+                <span>Cómo Llegar en Google Maps ↗</span>
+              </a>
+              <a href="tel:+34963286590"
+                 class="btn-outline-dark font-mono" style="padding: 0.65rem 1.15rem; font-size: 0.75rem; text-transform: uppercase;">
+                <span>Llamar a Secretaría (963 28 65 90)</span>
+              </a>
             </div>
           </div>
 
-          <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
-            <a href="https://www.google.com/maps/search/?api=1&query=Autoescuela+Tricicle+Calle+Fray+Junipero+Serra+71+Valencia"
-               target="_blank" rel="noopener noreferrer"
-               class="btn-outline-dark font-mono" style="padding: 0.8rem 1.25rem; font-size: 0.8rem; text-transform: uppercase;">
-              <span>Cómo Llegar en Google Maps ↗</span>
-            </a>
-            <a href="https://wa.me/34652256911?text=Hola%20Autoescuela%20Tricicle%2C%20quiero%20haceros%20una%20consulta."
-               target="_blank" rel="noopener noreferrer"
-               class="btn-tricicle font-mono" style="padding: 0.8rem 1.25rem; font-size: 0.8rem; text-transform: uppercase;">
-              <span>Hablar por WhatsApp</span>
+          <!-- Card 2: WhatsApp Humano Direto com Quem Ensina -->
+          <div class="spotlight-card" style="background: var(--asphalt); color: #FFFFFF; border: 2px solid var(--tricicle); border-radius: 0.85rem; padding: 1.75rem; box-shadow: 5px 5px 0px var(--tricicle); display: flex; flex-direction: column; gap: 1rem;">
+            <div style="display: flex; gap: 0.85rem; align-items: flex-start;">
+              <div style="width: 40px; height: 40px; border-radius: 8px; background: #25D366; color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+              </div>
+              <div>
+                <span style="font-size: 0.7rem; color: #25D366; font-weight: 700; text-transform: uppercase;" class="font-mono">WHATSAPP OFICIAL DIRECTO // SIN BOTS</span>
+                <h3 style="font-size: 1.45rem; font-weight: 800; text-transform: uppercase; margin-top: 0.15rem; color: #FFFFFF;" class="font-display">+34 652 25 69 11</h3>
+                <p style="font-size: 0.85rem; color: rgba(255,255,255,0.75); margin-top: 0.35rem;">
+                  Te responde una persona de nuestro equipo en minutos. Consúltanos fechas de exámenes, tarifas de matrículas o resolver dudas sobre tu caso particular.
+                </p>
+              </div>
+            </div>
+            <div style="border-top: 1px solid rgba(255,255,255,0.15); padding-top: 1rem;">
+              <a href="https://wa.me/34652256911?text=Hola%20Autoescuela%20Tricicle%2C%20quiero%20haceros%20una%20consulta%20directa%20sobre%20mi%20carnet."
+                 target="_blank" rel="noopener noreferrer"
+                 class="btn-tricicle font-mono" style="padding: 0.85rem 1.35rem; font-size: 0.8rem; text-transform: uppercase; width: 100%;">
+                <span>Abrir Conversación en WhatsApp ↗</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 3: Comunidade Real no Instagram -->
+          <div class="spotlight-card" style="background: var(--bg-paper); border: 2px solid var(--asphalt); border-radius: 0.85rem; padding: 1.5rem 1.75rem; box-shadow: 5px 5px 0px var(--asphalt); display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
+            <div style="display: flex; align-items: center; gap: 0.85rem;">
+              <div style="width: 38px; height: 38px; border-radius: 8px; background: linear-gradient(45deg, #F58529, #DD2A7B, #8134AF); color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+              </div>
+              <div>
+                <span style="font-size: 0.7rem; color: var(--ink-muted); font-weight: 700; text-transform: uppercase;" class="font-mono">COMUNIDAD Y APROBADOS CADA SEMANA</span>
+                <div style="font-size: 1.2rem; font-weight: 800;" class="font-display">@autoescuela_tricicle</div>
+              </div>
+            </div>
+            <a href="https://www.instagram.com/autoescuela_tricicle/" target="_blank" rel="noopener noreferrer"
+               class="btn-outline-dark font-mono" style="padding: 0.6rem 1rem; font-size: 0.75rem; text-transform: uppercase; white-space: nowrap;">
+              <span>Ver Fotos ↗</span>
             </a>
           </div>
+
         </div>
 
-        <!-- Foto Local / Editorial da Cidade de València -->
-        <div class="img-zoom-container" style="min-height: 320px;">
-          <img src="https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?w=1200&auto=format&fit=crop&q=80"
-               alt="Calles de Valencia para prácticas de conducir" />
+        <!-- Lado Direito: Foto Emocionante da Conquista Real sob o Sol de València -->
+        <div style="position: relative;" class="img-zoom-container">
+          <div style="height: 100%; min-height: 480px; border: 2px solid var(--asphalt); border-radius: 0.85rem; overflow: hidden; box-shadow: 8px 8px 0px var(--asphalt); position: relative;">
+            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=1200&auto=format&fit=crop&q=80"
+                 alt="Celebración del aprobado en Autoescuela Tricicle Valencia" />
+            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(12,14,17,0.85) 0%, rgba(12,14,17,0.2) 60%, transparent 100%);"></div>
+
+            <!-- Card Sobreposto Emocional -->
+            <div style="position: absolute; bottom: 2rem; left: 1.75rem; right: 1.75rem; background: rgba(246,244,238,0.96); border: 2px solid var(--asphalt); border-radius: 8px; padding: 1.5rem; box-shadow: 4px 4px 0px var(--asphalt);">
+              <div style="display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.4rem;">
+                <div class="l-badge" style="width: 24px; height: 28px; font-size: 1.2rem;">L</div>
+                <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--apto);" class="font-mono">
+                  ¡APTO A LA PRIMERA EN VALÈNCIA!
+                </span>
+              </div>
+              <p style="font-size: 1.15rem; font-weight: 800; text-transform: uppercase; line-height: 1.2; color: var(--asphalt);" class="font-display">
+                "El momento en que el examinador dice la palabra mágica y sabes que por fin eres libre."
+              </p>
+              <div style="font-size: 0.8rem; color: var(--ink-muted); margin-top: 0.45rem;">
+                Te toca a ti vivir esta sensación. Pásate por Patraix y arrancamos.
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -795,45 +1149,47 @@
   </style>
 
   <!-- ===================================================================== -->
-  <!-- RODAPÉ COMPACTO & ELEGANTE                                            -->
+  <!-- RODAPÉ EDITORIAL COMPACTO & ELEGANTE                                  -->
   <!-- ===================================================================== -->
-  <footer style="background-color: var(--asphalt); color: #FFFFFF; padding: 3rem 0; font-size: 0.8rem;" class="font-mono">
-    <div class="container-custom" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 2rem;">
-      <div>
-        <div style="font-size: 1.75rem; font-weight: 800; text-transform: uppercase; color: #FFFFFF;" class="font-display">
-          AUTOESCUELA <span style="background: var(--tricicle); color: var(--asphalt); padding: 0.1rem 0.4rem;">TRICICLE</span>
+  <footer style="background-color: var(--asphalt); color: #FFFFFF; padding: 3.5rem 0 2.5rem; font-size: 0.8rem;" class="font-mono">
+    <div class="container-custom">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 2rem;">
+        <div>
+          <div style="font-size: 1.85rem; font-weight: 800; text-transform: uppercase; color: #FFFFFF;" class="font-display">
+            AUTOESCUELA <span style="background: var(--tricicle); color: var(--asphalt); padding: 0.1rem 0.45rem;">TRICICLE</span>
+          </div>
+          <div style="color: rgba(255,255,255,0.65); margin-top: 0.35rem;">
+            C/ Fray Junípero Serra, 71 - 73 · 46014 València · Barrio de Patraix
+          </div>
         </div>
-        <div style="color: rgba(255,255,255,0.6); margin-top: 0.25rem;">
-          C/ Fray Junípero Serra, 71 - 73 · 46014 València · Patraix
+        <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
+          <a href="tel:+34963286590" style="color: var(--tricicle); text-decoration: none; font-weight: 700;">Tel: 963 28 65 90</a>
+          <a href="https://wa.me/34652256911" target="_blank" style="color: #25D366; text-decoration: none; font-weight: 700;">WhatsApp: 652 25 69 11</a>
+          <a href="https://www.instagram.com/autoescuela_tricicle/" target="_blank" style="color: #FF7096; text-decoration: none;">Instagram ↗</a>
         </div>
       </div>
-      <div style="display: flex; gap: 1.5rem; align-items: center;">
-        <a href="tel:+34963286590" style="color: var(--tricicle); text-decoration: none;">Tel: 963 28 65 90</a>
-        <a href="https://wa.me/34652256911" target="_blank" style="color: #10B981; text-decoration: none;">WhatsApp: 652 25 69 11</a>
-        <a href="https://www.instagram.com/autoescuela_tricicle/" target="_blank" style="color: #FF7096; text-decoration: none;">Instagram ↗</a>
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; padding-top: 1.75rem; font-size: 0.75rem; color: rgba(255,255,255,0.45);">
+        <div>© 2026 Autoescuela Tricicle Valencia. Más de 40 años formando conductores con orgullo.</div>
+        <div>Horario: Lunes a Viernes de 09:00 a 21:00 Ininterrumpido</div>
       </div>
-    </div>
-    <div class="container-custom" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; padding-top: 1.5rem; font-size: 0.7rem; color: rgba(255,255,255,0.45);">
-      <div>© 2026 Autoescuela Tricicle Valencia. Todos los derechos reservados.</div>
-      <div>Horario: Lunes a Viernes de 09:00 a 21:00</div>
     </div>
   </footer>
 
   <!-- ===================================================================== -->
-  <!-- MOTOR INTERATIVO VANILLA JS (GALERIA DA FROTA & PLANIFICADOR)        -->
+  <!-- MOTOR INTERATIVO VANILLA JS                                           -->
   <!-- ===================================================================== -->
   <script>
-    // 1. Galeria Dinâmica da Frota com Troca Fluida de Imagem e Specs
+    // 1. Galeria Dinâmica da Frota com Troca Fluida
     const fleetData = {
       coche: {
         img: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=1200&auto=format&fit=crop&q=80",
         badge1: "Dirección Asistida Eléctrica",
-        badge2: "Ar Gelando para el Verano",
+        badge2: "Fácil de Aparcar y Maniobrar",
         cat: "PERMISO B // TURISMO Y CIUDAD",
-        title: "Coches Modernos y Suaves de Conducir",
+        title: "Coches Modernos, Suaves y Fáciles",
         desc: "Dimensiones ideales para circular por el tráfico de València y hacer maniobras de examen sin perder referencias visuales.",
-        spec1: "Aula abierta + App 24h",
-        spec2: "Desde los 17 años",
+        spec1: "Aula abierta 09:00 a 21:00 + App Móvil",
+        spec2: "Desde los 17 años (Examen a los 18)",
         ctaLabel: "Consultar Matrícula Coche por WhatsApp",
         waMsg: "Hola Autoescuela Tricicle, quiero información para el Permiso B de Coche."
       },
@@ -844,106 +1200,115 @@
         cat: "ESCALERA MOTO // AM · A1 · A2 · CLASE A",
         title: "De 50cc a Cualquier Cilindrada",
         desc: "Prácticas de destreza y slalom en pista con motos equilibradas para que apruebes con soltura desde los 15 años.",
-        spec1: "Pista cerrada + Tráfico",
-        spec2: "Exento teórica si tienes el B",
+        spec1: "Pista cerrada + Tráfico real",
+        spec2: "Exento teórica si ya tienes el B",
         ctaLabel: "Consultar Permisos de Moto por WhatsApp",
         waMsg: "Hola Autoescuela Tricicle, me interesa información sobre los permisos de Moto (AM/A1/A2/A)."
       },
       pesado: {
         img: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=1200&auto=format&fit=crop&q=80",
-        badge1: "Flota Propia en València",
-        badge2: "Packs Ahorro con CAP",
-        cat: "TRANSPORTE PESADO // C1 · C · C+E",
-        title: "Camiones Rigidos y Articulados",
-        desc: "Formación profesional práctica orientada al empleo inmediato en logística y transporte nacional o internacional.",
-        spec1: "Vehículo pesado propio",
-        spec2: "A partir de 18 o 21 años",
-        ctaLabel: "Consultar Permiso de Camión por WhatsApp",
-        waMsg: "Hola Autoescuela Tricicle, quiero información sobre el permiso de Camión."
+        badge1: "Camiones Rígidos y Articulados",
+        badge2: "Pack Ahorro Camión + CAP",
+        cat: "TRANSPORTE PESADO // PERMISOS C1 · C · C+E",
+        title: "Vehículos Pesados Homologados Propios",
+        desc: "Entrénate en pista propia con camiones de visibilidad optimizada y cambio suave adaptados al estándar de Tráfico.",
+        spec1: "Desde los 18 o 21 años",
+        spec2: "Pista oficial + Circulación",
+        ctaLabel: "Pedir Presupuesto Camión por WhatsApp",
+        waMsg: "Hola Autoescuela Tricicle, quiero presupuesto para el carnet de Camión (C/C+E) y CAP."
       },
       bus: {
-        img: "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=1200&auto=format&fit=crop&q=80",
-        badge1: "CAP Viajeros Homologado",
-        badge2: "Alta Demanda Laboral",
-        cat: "TRANSPORTE DE VIAJEROS // D1 · D",
-        title: "Autobuses Urbanos e Interurbanos",
-        desc: "Consigue tu permiso D junto a tu Certificado de Aptitud Profesional para trabajar en transporte de pasajeros.",
-        spec1: "CAP Inicial 140h / 280h",
-        spec2: "Gestión de tacógrafo",
-        ctaLabel: "Consultar Autobús y CAP por WhatsApp",
-        waMsg: "Hola Autoescuela Tricicle, quiero información sobre el permiso de Autobús y CAP Viajeros."
+        img: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=1200&auto=format&fit=crop&q=80",
+        badge1: "Autobús Homologado en Valencia",
+        badge2: "Bolsa de Empleo y CAP Viajeros",
+        cat: "TRANSPORTE VIAJEROS // PERMISO D1 · D",
+        title: "Especialistas en Autobús y CAP Viajeros",
+        desc: "Conviértete en conductor profesional de transporte público y discrecional con prácticas reales en autobús.",
+        spec1: "Requisito: Permiso B previo",
+        spec2: "Cursos continuos CAP 35h",
+        ctaLabel: "Consultar Permiso Autobús por WhatsApp",
+        waMsg: "Hola Autoescuela Tricicle, quiero información sobre el Permiso D de Autobús y CAP Viajeros."
       }
     };
 
-    document.querySelectorAll('.fleet-btn').forEach(btn => {
+    const fleetBtns = document.querySelectorAll('.fleet-btn');
+    const fImg = document.getElementById('fleet-img');
+    const fBadge1 = document.getElementById('fleet-badge-1');
+    const fBadge2 = document.getElementById('fleet-badge-2');
+    const fCat = document.getElementById('fleet-category');
+    const fTitle = document.getElementById('fleet-title');
+    const fDesc = document.getElementById('fleet-desc');
+    const fSpec1 = document.getElementById('fleet-spec-1');
+    const fSpec2 = document.getElementById('fleet-spec-2');
+    const fCta = document.getElementById('fleet-cta');
+    const fCtaLabel = document.getElementById('fleet-cta-label');
+
+    fleetBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         const key = btn.getAttribute('data-fleet-tab');
-        const d = fleetData[key];
-        if (!d) return;
+        const data = fleetData[key];
+        if (!data) return;
 
-        document.querySelectorAll('.fleet-btn').forEach(b => {
-          b.style.backgroundColor = "#FFFFFF";
+        fleetBtns.forEach(b => {
+          b.style.backgroundColor = "var(--bg-paper)";
           b.style.color = "var(--asphalt)";
-          b.style.border = "1px solid rgba(14,16,18,0.2)";
+          b.style.border = "1px solid rgba(12,14,17,0.2)";
           b.style.fontWeight = "600";
         });
         btn.style.backgroundColor = "var(--asphalt)";
         btn.style.color = "var(--tricicle)";
-        btn.style.border = "1px solid var(--asphalt)";
+        btn.style.border = "2px solid var(--asphalt)";
         btn.style.fontWeight = "700";
 
-        // Transição suave
-        const imgEl = document.getElementById('fleet-img');
-        imgEl.style.opacity = '0.3';
+        fImg.style.opacity = '0';
         setTimeout(() => {
-          imgEl.src = d.img;
-          imgEl.style.opacity = '1';
-        }, 150);
-
-        document.getElementById('fleet-badge-1').textContent = d.badge1;
-        document.getElementById('fleet-badge-2').textContent = d.badge2;
-        document.getElementById('fleet-category').textContent = d.cat;
-        document.getElementById('fleet-title').textContent = d.title;
-        document.getElementById('fleet-desc').textContent = d.desc;
-        document.getElementById('fleet-spec-1').textContent = d.spec1;
-        document.getElementById('fleet-spec-2').textContent = d.spec2;
-        document.getElementById('fleet-cta-label').textContent = d.ctaLabel;
-        document.getElementById('fleet-cta').href = `https://wa.me/34652256911?text=${encodeURIComponent(d.waMsg)}`;
+          fImg.src = data.img;
+          fBadge1.textContent = data.badge1;
+          fBadge2.textContent = data.badge2;
+          fCat.textContent = data.cat;
+          fTitle.textContent = data.title;
+          fDesc.textContent = data.desc;
+          fSpec1.textContent = data.spec1;
+          fSpec2.textContent = data.spec2;
+          fCtaLabel.textContent = data.ctaLabel;
+          fCta.href = `https://wa.me/34652256911?text=${encodeURIComponent(data.waMsg)}`;
+          fImg.style.opacity = '1';
+        }, 180);
       });
     });
 
-    // 2. Planificador DGT Rápido
+    // 2. Calculadora Interativa DGT
     const planState = { plan: 'B', status: 'cero' };
-
     function updatePlannerUI() {
       const title = document.getElementById('plan-res-title');
       const desc = document.getElementById('plan-res-desc');
       const note = document.getElementById('plan-res-note');
       const cta = document.getElementById('plan-res-cta');
 
-      let t = "", d = "", n = "";
+      let t = "Permiso B de Coche";
+      let d = "Comienzas clases teóricas y test a los 17 años. Haces examen común de 30 preguntas y examen práctico al cumplir los 18.";
+      let n = "VENTAJA TRICICLE: Aula presencial continua de 09:00 a 21:00 en Patraix + plataforma oficial 24h.";
 
       if (planState.plan === 'B') {
-        t = "Permiso B de Coche";
-        d = "Comienzas clases teóricas y test a los 17 años. Haces examen común de 30 preguntas y examen práctico al cumplir los 18.";
-        n = "VENTAJA: Aula presencial continua de 09:00 a 21:00 en Patraix + plataforma online 24h.";
+        t = "Permiso B (Turismo)";
+        d = planState.status === 'cero'
+          ? "Desde cero: teórica común (30 preguntas, máx 3 fallos) + prácticas de circulación en Valencia. Examen práctico oficial con el mismo coche que conoces."
+          : "Ya tienes base: nos enfocamos directamente en tus maniobras y rutas habituales de examen DGT en Patraix y Campanar.";
+        n = "Sin prisas ni gritos: profesores pacientes con más de 40 años de experiencia.";
       } else if (planState.plan === 'A2') {
-        t = "Permisos de Moto (AM · A1 · A2)";
-        if (planState.status === 'tengoB' || planState.status === 'pro') {
-          d = "¡Buenas noticias! Al tener ya el carnet B, te ahorras el examen teórico general de 30 preguntas. Solo haces test específico y pista/circulación.";
-          n = "EXENCIÓN DGT: Convalidas la teórica general automáticamente.";
-        } else {
-          d = "Teórica común (30 preguntas) + Teórica específica de moto (20 preguntas) + Maniobras en circuito cerrado y circulación.";
-          n = "BENEFICIO: La teórica común ya te sirve para sacarte el coche más adelante.";
-        }
+        t = "Motos A1 / A2 (Hasta 35 kW)";
+        d = planState.status === 'tengoB'
+          ? "¡Exento de Teórica Común! Solo haces teórica específica de moto (20 preguntas) + examen de maniobras en circuito cerrado + circulación en tráfico real."
+          : "Teórica común + específica moto + pista cerrada y circulación con motos equilibradas y dóciles.";
+        n = "Motos ágiles para superar el circuito de destreza a la primera.";
       } else if (planState.plan === 'A') {
-        t = "Curso Permiso A (9 Horas)";
-        d = "Sin exámenes en la DGT. Curso directo de 3 horas teóricas, 4 horas en circuito y 2 horas de circulación para motos sin límite de potencia.";
-        n = "REQUISITO: Poseer 2 años de antigüedad en el carnet A2.";
-      } else {
-        t = "Transporte Pesado (Camión / CAP / ADR)";
-        d = "Itinerario orientado al empleo: Permiso C o D con flota propia, CAP Inicial (140h/280h) o cursos oficiales ADR para mercancías peligrosas.";
-        n = "PACK LABORAL: Consulta combinaciones con descuento de Carnet + CAP.";
+        t = "Curso Permiso A (Sin Examen)";
+        d = "Curso oficial de 9 horas (3h teóricas, 4h pista, 2h tráfico). Al terminarlo obtienes la autorización para cualquier moto del mundo sin pasar examen DGT.";
+        n = "Requisito imprescindible: tener al menos 2 años de antigüedad con el carnet A2.";
+      } else if (planState.plan === 'PRO') {
+        t = "Camión C, CAP y ADR";
+        d = "Formación para conductores profesionales con camiones propios en Valencia. Obtención simultánea o renovaciones periódicas sin esperas.";
+        n = "Alta demanda laboral en logística valenciana con sueldos competitivos.";
       }
 
       title.textContent = t;
@@ -958,7 +1323,7 @@
         document.querySelectorAll('.plan-btn').forEach(b => {
           b.style.background = "var(--bg-paper)";
           b.style.color = "var(--asphalt)";
-          b.style.border = "1px solid rgba(14,16,18,0.2)";
+          b.style.border = "1px solid rgba(12,14,17,0.2)";
           b.style.fontWeight = "600";
         });
         btn.style.background = "var(--asphalt)";
@@ -975,7 +1340,7 @@
         document.querySelectorAll('.status-btn').forEach(b => {
           b.style.background = "var(--bg-paper)";
           b.style.color = "var(--asphalt)";
-          b.style.border = "1px solid rgba(14,16,18,0.2)";
+          b.style.border = "1px solid rgba(12,14,17,0.2)";
           b.style.fontWeight = "600";
         });
         btn.style.background = "var(--asphalt)";
@@ -986,7 +1351,7 @@
       });
     });
 
-    // 3. Spotlight Mouse Tracker (aceternity/ui)
+    // 3. Spotlight Mouse Tracker
     document.querySelectorAll('.spotlight-card').forEach(card => {
       card.addEventListener('mousemove', e => {
         const rect = card.getBoundingClientRect();
